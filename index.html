@@ -254,19 +254,70 @@
       box-shadow: 0 8px 18px rgba(37, 211, 102, 0.25);
     }
 
-    .btn-test {
-      background: #f1f3f4;
-      color: #555;
-      font-size: 0.8rem;
-      padding: 10px;
-      margin-top: 10px;
-      border: 1px dashed #bbb;
+    .btn-gift {
+      background: #faf6f5;
+      color: var(--rose-accent-dark);
+      border: 1px solid #ebd8d8;
     }
 
+    /* Galería de fotos */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 1;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.2s;
+    }
+
+    .gallery-item img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Cuadro de datos de regalo */
+    .gift-details {
+      margin-top: 14px;
+      padding: 14px;
+      background: #fbf5f4;
+      border: 1px dashed #dfc3c3;
+      border-radius: 14px;
+      display: none;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+
+    .copy-pill {
+      background: #fff;
+      border: 1px solid #dfc3c3;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 6px 0;
+      cursor: pointer;
+    }
+
+    /* Modales */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.6);
       backdrop-filter: blur(4px);
       display: none;
       align-items: center;
@@ -311,6 +362,14 @@
       font-family: inherit;
     }
 
+    /* Modal de imagen ampliada */
+    #lightboxModal img {
+      max-width: 90vw;
+      max-height: 80vh;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
     .footer {
       text-align: center;
       font-size: 0.75rem;
@@ -327,6 +386,7 @@
       <span style="font-size: 0.75rem; color: var(--rose-accent-dark); font-weight: 500;">Bautismo de Ámbar</span>
     </div>
 
+    <!-- Tarjeta Principal -->
     <div class="card">
       <div class="cross-icon">✝</div>
       <div class="title-sub">Mi Bautismo</div>
@@ -367,20 +427,80 @@
       </div>
     </div>
 
+    <!-- Ceremonia -->
     <div class="info-card">
       <div class="icon-badge">⛪</div>
       <h3>Ceremonia</h3>
-      <div class="highlight">Sábado 14 de Noviembre de 2026</div>
+      <div class="highlight">Sábado 14 de Noviembre de 2026 · 11:00 hs</div>
       <p class="address">
         <strong>Parroquia Nuestra Señora de Luján</strong><br>
         (Verbo Divino)<br>
         C. Bibiano Meza 2214, Resistencia, Chaco
       </p>
       <a href="https://maps.google.com/?q=C.+Bibiano+Meza+2214,+Resistencia,+Chaco" target="_blank" class="btn btn-maps">
-        📍 Cómo llegar en Google Maps
+        📍 Cómo llegar a la Misa
       </a>
     </div>
 
+    <!-- Festejo / Salón (Provisorio) -->
+    <div class="info-card">
+      <div class="icon-badge">🥂</div>
+      <h3>Festejo</h3>
+      <div class="highlight">Sábado 14 de Noviembre · Al término de la misa</div>
+      <p class="address">
+        <strong>Salón de Eventos</strong><br>
+        (A confirmar / Lugar provisorio)<br>
+        Resistencia, Chaco
+      </p>
+      <a href="https://maps.google.com/?q=Resistencia,+Chaco" target="_blank" class="btn btn-maps">
+        📍 Ubicación del Festejo
+      </a>
+    </div>
+
+    <!-- Galería de Recuerdos -->
+    <div class="info-card">
+      <div class="icon-badge">📷</div>
+      <h3>Momentos Especiales</h3>
+      <p class="address">Un poquito de mi crecimiento hasta hoy</p>
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox('foto1.jpg')">
+          <img src="foto1.jpg" alt="Ámbar foto 1">
+        </div>
+        <div class="gallery-item" onclick="openLightbox('foto2.jpg')">
+          <img src="foto2.jpg" alt="Ámbar foto 2">
+        </div>
+        <div class="gallery-item" onclick="openLightbox('foto3.jpg')">
+          <img src="foto3.jpg" alt="Ámbar foto 3">
+        </div>
+      </div>
+    </div>
+
+    <!-- Regalo / Sugerencia -->
+    <div class="info-card">
+      <div class="icon-badge">🎁</div>
+      <h3>Regalo</h3>
+      <p class="address">
+        Tu presencia es nuestro mejor regalo. Si deseás hacerme un presente para acompañar mis primeros pasos, te dejamos los datos:
+      </p>
+      <button class="btn btn-gift" id="toggleGiftBtn">
+        Ver datos de cuenta / Alias
+      </button>
+
+      <div class="gift-details" id="giftBox">
+        <p style="margin-bottom: 6px; color: var(--text-muted); font-size: 0.8rem;">Tocá para copiar el dato:</p>
+        <div class="copy-pill" onclick="copyText('BAUTISMO.AMBAR')">
+          <span><strong>Alias:</strong> BAUTISMO.AMBAR</span>
+          <span style="font-size: 0.75rem; color: var(--rose-accent-dark);">Copiar 📋</span>
+        </div>
+        <div class="copy-pill" onclick="copyText('0000003100010000000000')">
+          <span><strong>CBU:</strong> 0000003100010000000000</span>
+          <span style="font-size: 0.75rem; color: var(--rose-accent-dark);">Copiar 📋</span>
+        </div>
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Titular: Alejandro Rothlisberger</p>
+      </div>
+    </div>
+
+    <!-- Confirmación RSVP -->
     <div class="info-card">
       <div class="icon-badge">💌</div>
       <h3>Confirmar Asistencia</h3>
@@ -389,10 +509,6 @@
       <button class="btn btn-whatsapp" id="openRsvpBtn">
         Confirmar por WhatsApp
       </button>
-
-      <button class="btn btn-test" id="testDirectBtn">
-        📲 Probar envío directo a mi número (3624-868316)
-      </button>
     </div>
 
     <div class="footer">
@@ -400,6 +516,7 @@
     </div>
   </div>
 
+  <!-- Modal RSVP -->
   <div class="modal-overlay" id="rsvpModal">
     <div class="modal-box">
       <h3>Confirmar Asistencia</h3>
@@ -431,6 +548,11 @@
     </div>
   </div>
 
+  <!-- Modal Lightbox (Foto ampliada) -->
+  <div class="modal-overlay" id="lightboxModal" onclick="closeLightbox()">
+    <img id="lightboxImg" src="" alt="Ámbar ampliada">
+  </div>
+
   <script>
     const TARGET_DATE = new Date(2026, 10, 14, 11, 0, 0).getTime();
     const PHONE = "5493624868316";
@@ -460,11 +582,11 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
+    // RSVP
     const rsvpModal = document.getElementById('rsvpModal');
     const openRsvpBtn = document.getElementById('openRsvpBtn');
     const closeRsvpBtn = document.getElementById('closeRsvpBtn');
     const rsvpForm = document.getElementById('rsvpForm');
-    const testDirectBtn = document.getElementById('testDirectBtn');
 
     openRsvpBtn.addEventListener('click', () => rsvpModal.style.display = 'flex');
     closeRsvpBtn.addEventListener('click', () => rsvpModal.style.display = 'none');
@@ -484,11 +606,39 @@
       rsvpModal.style.display = 'none';
     });
 
-    testDirectBtn.addEventListener('click', () => {
-      const text = `¡Hola! Mensaje de prueba para el bautismo de Ámbar ✨`;
-      window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(text)}`, '_blank');
+    // Regalo toggle
+    const toggleGiftBtn = document.getElementById('toggleGiftBtn');
+    const giftBox = document.getElementById('giftBox');
+    toggleGiftBtn.addEventListener('click', () => {
+      if (giftBox.style.display === 'block') {
+        giftBox.style.display = 'none';
+        toggleGiftBtn.innerText = 'Ver datos de cuenta / Alias';
+      } else {
+        giftBox.style.display = 'block';
+        toggleGiftBtn.innerText = 'Ocultar datos';
+      }
     });
 
+    function copyText(str) {
+      navigator.clipboard.writeText(str).then(() => {
+        alert("¡Copiado al portapapeles: " + str + "!");
+      });
+    }
+
+    // Lightbox
+    const lightboxModal = document.getElementById('lightboxModal');
+    const lightboxImg = document.getElementById('lightboxImg');
+
+    function openLightbox(src) {
+      lightboxImg.src = src;
+      lightboxModal.style.display = 'flex';
+    }
+
+    function closeLightbox() {
+      lightboxModal.style.display = 'none';
+    }
+
+    // Música de cuna
     let audioCtx = null;
     let isPlaying = false;
     let timerId = null;
