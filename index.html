@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Bautismo · Ámbar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --rose-light: #fbf5f4;
+      --rose-card: #ffffff;
+      --rose-accent: #dd9b9b;
+      --rose-accent-dark: #b86b6b;
+      --gold-soft: #cbb493;
+      --text-main: #3d3434;
+      --text-muted: #7d7272;
+      --radius: 24px;
+      --shadow: 0 16px 36px rgba(184, 107, 107, 0.08);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Montserrat', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--rose-light);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 24px 16px 60px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 8px;
+    }
+
+    .music-btn {
+      background: #ffffff;
+      border: 1px solid rgba(221, 155, 155, 0.3);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--rose-accent-dark);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+
+    .card {
+      background: var(--rose-card);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(221, 155, 155, 0.2);
+    }
+
+    .cross-icon {
+      color: var(--gold-soft);
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .title-sub {
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 0.8rem;
+      color: var(--rose-accent-dark);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .title-name {
+      font-family: var(--font-serif);
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 190px;
+      height: 190px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      padding: 6px;
+      background: linear-gradient(135deg, #f7dcd6 0%, #ecd4b8 100%);
+      box-shadow: 0 10px 24px rgba(221, 155, 155, 0.25);
+    }
+
+    .avatar-circle {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      transition: transform 0.1s;
+    }
+
+    .photo-controls {
+      background: #faf6f5;
+      border: 1px solid #ebd8d8;
+      border-radius: 14px;
+      padding: 12px;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .photo-controls input[type="file"] {
+      display: none;
+    }
+
+    .upload-label-btn {
+      display: inline-block;
+      background: var(--rose-accent);
+      color: white;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .slider-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .slider-group span { width: 55px; text-align: right; }
+    .slider-group input { flex: 1; }
+
+    .quote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin: 20px 0;
+    }
+
+    .parents-box {
+      border-top: 1px solid #f2e2e2;
+      border-bottom: 1px solid #f2e2e2;
+      padding: 14px 0;
+      margin: 18px 0;
+    }
+
+    .parents-box h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--rose-accent-dark);
+      margin-bottom: 6px;
+    }
+
+    .parents-box p {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .timer-section {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 20px 0 10px;
+    }
+
+    .timer-slot {
+      background: #fbf5f4;
+      border: 1px solid #edd4d4;
+      border-radius: 14px;
+      padding: 10px 4px;
+    }
+
+    .timer-slot .num {
+      font-family: var(--font-serif);
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--rose-accent-dark);
+      line-height: 1;
+    }
+
+    .timer-slot .lbl {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .info-card {
+      background: var(--rose-card);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(221, 155, 155, 0.2);
+      text-align: center;
+    }
+
+    .icon-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #fdf2f1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      font-size: 1.3rem;
+      color: var(--rose-accent);
+    }
+
+    .info-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+    }
+
+    .info-card .highlight {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--rose-accent-dark);
+      margin-bottom: 6px;
+    }
+
+    .info-card .address {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px 20px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.15s, opacity 0.15s;
+    }
+    .btn:active { transform: scale(0.98); }
+
+    .btn-maps {
+      background: #fff;
+      color: var(--text-main);
+      border: 1px solid #dfc3c3;
+    }
+
+    .btn-whatsapp {
+      background: #25D366;
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(37, 211, 102, 0.25);
+    }
+
+    .btn-test {
+      background: #f1f3f4;
+      color: #555;
+      font-size: 0.8rem;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px dashed #bbb;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 20px;
+      padding: 24px;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .modal-box h3 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text-muted);
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-family: inherit;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="top-bar">
+      <button class="music-btn" id="musicToggle">Tocar música 🎵</button>
+      <span style="font-size: 0.75rem; color: var(--rose-accent-dark); font-weight: 500;">Bautismo de Ámbar</span>
+    </div>
+
+    <div class="card">
+      <div class="cross-icon">✝</div>
+      <div class="title-sub">Mi Bautismo</div>
+      <h1 class="title-name">Ámbar</h1>
+
+      <div class="avatar-wrapper">
+        <div class="avatar-circle">
+          <img id="babyPhoto" class="avatar-img" src="https://images.unsplash.com/photo-1544126592-807ade215a0b?w=600&auto=format&fit=crop&q=80" alt="Ámbar">
+        </div>
+      </div>
+
+      <div class="photo-controls">
+        <label class="upload-label-btn" for="photoInput">📷 Cargar foto de Ámbar</label>
+        <input type="file" id="photoInput" accept="image/*">
+        <div class="slider-group">
+          <span>Posición:</span>
+          <input type="range" id="posY" min="0" max="100" value="30">
+        </div>
+        <div class="slider-group">
+          <span>Zoom:</span>
+          <input type="range" id="zoom" min="100" max="200" value="100">
+        </div>
+      </div>
+
+      <p class="quote">
+        "En este día tan especial recibo la bendición de Dios, rodeada del amor de mi familia."
+      </p>
+
+      <div class="parents-box">
+        <h4>Mis Papás</h4>
+        <p>Cynthia Corró &amp; Alejandro Rothlisberger</p>
+      </div>
+
+      <div class="timer-section">
+        <div class="timer-slot">
+          <div class="num" id="days">--</div>
+          <div class="lbl">Días</div>
+        </div>
+        <div class="timer-slot">
+          <div class="num" id="hours">--</div>
+          <div class="lbl">Horas</div>
+        </div>
+        <div class="timer-slot">
+          <div class="num" id="minutes">--</div>
+          <div class="lbl">Min</div>
+        </div>
+        <div class="timer-slot">
+          <div class="num" id="seconds">--</div>
+          <div class="lbl">Seg</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="icon-badge">⛪</div>
+      <h3>Ceremonia</h3>
+      <div class="highlight">Sábado 14 de Noviembre de 2026</div>
+      <p class="address">
+        <strong>Parroquia Nuestra Señora de Luján</strong><br>
+        (Verbo Divino)<br>
+        C. Bibiano Meza 2214, Resistencia, Chaco
+      </p>
+      <a href="https://maps.google.com/?q=C.+Bibiano+Meza+2214,+Resistencia,+Chaco" target="_blank" class="btn btn-maps">
+        📍 Cómo llegar en Google Maps
+      </a>
+    </div>
+
+    <div class="info-card">
+      <div class="icon-badge">💌</div>
+      <h3>Confirmar Asistencia</h3>
+      <p class="address">Por favor confirmanos si vas a poder acompañarnos antes del evento.</p>
+      
+      <button class="btn btn-whatsapp" id="openRsvpBtn">
+        Confirmar por WhatsApp
+      </button>
+
+      <button class="btn btn-test" id="testDirectBtn">
+        📲 Probar envío directo a mi número (3624-868316)
+      </button>
+    </div>
+
+    <div class="footer">
+      Esperamos compartir este hermoso momento con vos ❤️
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="rsvpModal">
+    <div class="modal-box">
+      <h3>Confirmar Asistencia</h3>
+      <form id="rsvpForm">
+        <div class="form-group">
+          <label>Nombre y Apellido / Familia</label>
+          <input type="text" id="guestName" placeholder="Ej: Familia López" required>
+        </div>
+        <div class="form-group">
+          <label>¿Cuántas personas asisten?</label>
+          <select id="guestCount">
+            <option value="1 persona">1 persona</option>
+            <option value="2 personas" selected>2 personas</option>
+            <option value="3 personas">3 personas</option>
+            <option value="4 o más personas">4 o más personas</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Mensaje o dedicatoria (opcional)</label>
+          <input type="text" id="guestMsg" placeholder="¡Ahí estaremos con muchas ganas!">
+        </div>
+        <button type="submit" class="btn btn-whatsapp" style="margin-top: 10px;">
+          Enviar Confirmación
+        </button>
+        <button type="button" class="btn btn-maps" id="closeRsvpBtn" style="margin-top: 8px;">
+          Cancelar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const TARGET_DATE = new Date(2026, 10, 14, 11, 0, 0).getTime();
+    const PHONE = "5493624868316";
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = TARGET_DATE - now;
+
+      if (diff <= 0) {
+        document.getElementById('days').innerText = "0";
+        document.getElementById('hours').innerText = "0";
+        document.getElementById('minutes').innerText = "0";
+        document.getElementById('seconds').innerText = "0";
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('days').innerText = d;
+      document.getElementById('hours').innerText = h;
+      document.getElementById('minutes').innerText = m;
+      document.getElementById('seconds').innerText = s;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    const photoInput = document.getElementById('photoInput');
+    const babyPhoto = document.getElementById('babyPhoto');
+    const posY = document.getElementById('posY');
+    const zoom = document.getElementById('zoom');
+
+    const savedPhoto = localStorage.getItem('ambar_photo');
+    if (savedPhoto) babyPhoto.src = savedPhoto;
+
+    const savedY = localStorage.getItem('ambar_pos_y') || 30;
+    const savedZoom = localStorage.getItem('ambar_zoom') || 100;
+    posY.value = savedY;
+    zoom.value = savedZoom;
+    applyPhotoStyle();
+
+    photoInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          babyPhoto.src = event.target.result;
+          try {
+            localStorage.setItem('ambar_photo', event.target.result);
+          } catch(err) {
+            console.warn("Storage full or private window");
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    function applyPhotoStyle() {
+      babyPhoto.style.objectPosition = `center ${posY.value}%`;
+      babyPhoto.style.transform = `scale(${zoom.value / 100})`;
+      localStorage.setItem('ambar_pos_y', posY.value);
+      localStorage.setItem('ambar_zoom', zoom.value);
+    }
+
+    posY.addEventListener('input', applyPhotoStyle);
+    zoom.addEventListener('input', applyPhotoStyle);
+
+    const rsvpModal = document.getElementById('rsvpModal');
+    const openRsvpBtn = document.getElementById('openRsvpBtn');
+    const closeRsvpBtn = document.getElementById('closeRsvpBtn');
+    const rsvpForm = document.getElementById('rsvpForm');
+    const testDirectBtn = document.getElementById('testDirectBtn');
+
+    openRsvpBtn.addEventListener('click', () => rsvpModal.style.display = 'flex');
+    closeRsvpBtn.addEventListener('click', () => rsvpModal.style.display = 'none');
+
+    rsvpForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('guestName').value;
+      const count = document.getElementById('guestCount').value;
+      const msg = document.getElementById('guestMsg').value;
+
+      let text = `¡Hola! Confirmo mi asistencia al bautismo de Ámbar ✨%0A%0A`;
+      text += `*Familia/Nombre:* ${encodeURIComponent(name)}%0A`;
+      text += `*Asistentes:* ${encodeURIComponent(count)}%0A`;
+      if (msg) text += `*Mensaje:* ${encodeURIComponent(msg)}`;
+
+      window.open(`https://wa.me/${PHONE}?text=${text}`, '_blank');
+      rsvpModal.style.display = 'none';
+    });
+
+    testDirectBtn.addEventListener('click', () => {
+      const text = `¡Hola! Mensaje de prueba para el bautismo de Ámbar ✨`;
+      window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(text)}`, '_blank');
+    });
+
+    let audioCtx = null;
+    let isPlaying = false;
+    let timerId = null;
+
+    const musicBtn = document.getElementById('musicToggle');
+    musicBtn.addEventListener('click', () => {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (isPlaying) {
+        isPlaying = false;
+        clearInterval(timerId);
+        musicBtn.innerText = "Tocar música 🎵";
+      } else {
+        isPlaying = true;
+        musicBtn.innerText = "Pausar música ⏸️";
+        playLullabyMelody();
+      }
+    });
+
+    function playNote(freq, start, duration) {
+      if (!isPlaying || !audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, start);
+      gain.gain.setValueAtTime(0.001, start);
+      gain.gain.exponentialRampToValueAtTime(0.12, start + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(start);
+      osc.stop(start + duration);
+    }
+
+    function playLullabyMelody() {
+      const notes = [
+        { f: 523.25, d: 0.6 }, { f: 587.33, d: 0.6 }, { f: 659.25, d: 0.8 },
+        { f: 523.25, d: 0.6 }, { f: 659.25, d: 0.6 }, { f: 783.99, d: 1.0 },
+        { f: 659.25, d: 0.6 }, { f: 587.33, d: 0.6 }, { f: 523.25, d: 1.2 }
+      ];
+      let now = audioCtx.currentTime;
+      notes.forEach((n, i) => {
+        playNote(n.f, now + (i * 0.7), n.d);
+      });
+      timerId = setInterval(() => {
+        if (!isPlaying) return;
+        now = audioCtx.currentTime;
+        notes.forEach((n, i) => {
+          playNote(n.f, now + (i * 0.7), n.d);
+        });
+      }, notes.length * 700 + 1000);
+    }
+  </script>
+</body>
+</html>
