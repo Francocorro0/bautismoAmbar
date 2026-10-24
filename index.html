@@ -6,7 +6,7 @@
   <title>Mi Bautismo · Ámbar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --rose-light: #fbf5f4;
@@ -98,8 +98,8 @@
 
     .avatar-wrapper {
       position: relative;
-      width: 190px;
-      height: 190px;
+      width: 210px;
+      height: 210px;
       margin: 0 auto 16px;
       border-radius: 50%;
       padding: 6px;
@@ -113,54 +113,14 @@
       border-radius: 50%;
       overflow: hidden;
       background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .avatar-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 30%;
-      transition: transform 0.1s;
+      object-position: center 20%;
     }
-
-    .photo-controls {
-      background: #faf6f5;
-      border: 1px solid #ebd8d8;
-      border-radius: 14px;
-      padding: 12px;
-      margin-top: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .photo-controls input[type="file"] {
-      display: none;
-    }
-
-    .upload-label-btn {
-      display: inline-block;
-      background: var(--rose-accent);
-      color: white;
-      padding: 8px 14px;
-      border-radius: 20px;
-      font-weight: 500;
-      cursor: pointer;
-    }
-
-    .slider-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .slider-group span { width: 55px; text-align: right; }
-    .slider-group input { flex: 1; }
 
     .quote {
       font-family: var(--font-serif);
@@ -374,20 +334,7 @@
 
       <div class="avatar-wrapper">
         <div class="avatar-circle">
-          <img id="babyPhoto" class="avatar-img" src="https://images.unsplash.com/photo-1544126592-807ade215a0b?w=600&auto=format&fit=crop&q=80" alt="Ámbar">
-        </div>
-      </div>
-
-      <div class="photo-controls">
-        <label class="upload-label-btn" for="photoInput">📷 Cargar foto de Ámbar</label>
-        <input type="file" id="photoInput" accept="image/*">
-        <div class="slider-group">
-          <span>Posición:</span>
-          <input type="range" id="posY" min="0" max="100" value="30">
-        </div>
-        <div class="slider-group">
-          <span>Zoom:</span>
-          <input type="range" id="zoom" min="100" max="200" value="100">
+          <img id="babyPhoto" class="avatar-img" src="foto.jpg" alt="Ámbar">
         </div>
       </div>
 
@@ -512,46 +459,6 @@
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
-
-    const photoInput = document.getElementById('photoInput');
-    const babyPhoto = document.getElementById('babyPhoto');
-    const posY = document.getElementById('posY');
-    const zoom = document.getElementById('zoom');
-
-    const savedPhoto = localStorage.getItem('ambar_photo');
-    if (savedPhoto) babyPhoto.src = savedPhoto;
-
-    const savedY = localStorage.getItem('ambar_pos_y') || 30;
-    const savedZoom = localStorage.getItem('ambar_zoom') || 100;
-    posY.value = savedY;
-    zoom.value = savedZoom;
-    applyPhotoStyle();
-
-    photoInput.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          babyPhoto.src = event.target.result;
-          try {
-            localStorage.setItem('ambar_photo', event.target.result);
-          } catch(err) {
-            console.warn("Storage full or private window");
-          }
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-
-    function applyPhotoStyle() {
-      babyPhoto.style.objectPosition = `center ${posY.value}%`;
-      babyPhoto.style.transform = `scale(${zoom.value / 100})`;
-      localStorage.setItem('ambar_pos_y', posY.value);
-      localStorage.setItem('ambar_zoom', zoom.value);
-    }
-
-    posY.addEventListener('input', applyPhotoStyle);
-    zoom.addEventListener('input', applyPhotoStyle);
 
     const rsvpModal = document.getElementById('rsvpModal');
     const openRsvpBtn = document.getElementById('openRsvpBtn');
