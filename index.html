@@ -433,6 +433,9 @@
 </head>
 <body>
 
+  <!-- Audio MP3 real subido a GitHub -->
+  <audio id="cancionReal" src="musica.mp3" loop preload="auto"></audio>
+
   <div class="container">
     <div class="top-bar">
       <button class="music-btn" id="musicToggle">Tocar música 🎵</button>
@@ -654,7 +657,7 @@
       rsvpModal.style.display = 'none';
     });
 
-    // Carrusel de Galería
+    // Carrusel
     const photoList = [
       'foto1.jpg',
       'foto2.jpg',
@@ -720,84 +723,20 @@
       if (touchEndX > touchStartX + 50) prevPhoto();
     }, { passive: true });
 
-    // Música: "Somewhere Over the Rainbow" (Web Audio API limpia)
-    let audioCtx = null;
-    let isPlaying = false;
-    let timeoutIds = [];
+    // Reproductor de audio real (musica.mp3)
+    const cancion = document.getElementById('cancionReal');
     const musicBtn = document.getElementById('musicToggle');
 
-    const N = {
-      C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23, G4: 392.00, A4: 440.00, B4: 493.88,
-      C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99, A5: 880.00, B5: 987.77
-    };
-
-    const rainbowMelody = [
-      { f: N.C4, d: 0.9, t: 0.0 },
-      { f: N.C5, d: 1.1, t: 1.0 },
-      { f: N.B4, d: 0.6, t: 2.2 },
-      { f: N.G4, d: 0.4, t: 2.8 },
-      { f: N.A4, d: 0.5, t: 3.3 },
-      { f: N.B4, d: 0.5, t: 3.9 },
-      { f: N.C5, d: 1.2, t: 4.5 },
-      { f: N.C5, d: 0.8, t: 6.0 },
-      { f: N.A4, d: 0.8, t: 6.9 },
-      { f: N.G4, d: 1.4, t: 7.8 },
-      { f: N.C4, d: 0.9, t: 9.5 },
-      { f: N.A4, d: 1.0, t: 10.5 },
-      { f: N.G4, d: 0.6, t: 11.6 },
-      { f: N.E4, d: 0.5, t: 12.3 },
-      { f: N.F4, d: 0.5, t: 12.9 },
-      { f: N.G4, d: 0.5, t: 13.5 },
-      { f: N.A4, d: 1.1, t: 14.1 },
-      { f: N.F4, d: 0.7, t: 15.4 },
-      { f: N.D4, d: 0.7, t: 16.2 },
-      { f: N.C4, d: 1.6, t: 17.0 }
-    ];
-
-    function playBellNote(freq, startTime, duration) {
-      if (!isPlaying || !audioCtx) return;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, startTime);
-      gain.gain.setValueAtTime(0.0001, startTime);
-      gain.gain.exponentialRampToValueAtTime(0.18, startTime + 0.04);
-      gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start(startTime);
-      osc.stop(startTime + duration + 0.1);
-    }
-
-    function startRainbowLoop() {
-      if (!isPlaying) return;
-      const now = audioCtx.currentTime;
-      rainbowMelody.forEach(note => {
-        playBellNote(note.f, now + note.t, note.d);
-      });
-      const loopId = setTimeout(() => {
-        if (isPlaying) startRainbowLoop();
-      }, 19500);
-      timeoutIds.push(loopId);
-    }
-
-    function stopMusic() {
-      isPlaying = false;
-      timeoutIds.forEach(id => clearTimeout(id));
-      timeoutIds = [];
-      musicBtn.innerText = "Tocar música 🎵";
-    }
-
     musicBtn.addEventListener('click', () => {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (isPlaying) {
-        stopMusic();
+      if (cancion.paused) {
+        cancion.play().then(() => {
+          musicBtn.innerText = "Pausar música ⏸️";
+        }).catch((err) => {
+          console.log("Esperando interacción del usuario", err);
+        });
       } else {
-        isPlaying = true;
-        musicBtn.innerText = "Pausar música ⏸️";
-        startRainbowLoop();
+        cancion.pause();
+        musicBtn.innerText = "Tocar música 🎵";
       }
     });
   </script>
