@@ -1,771 +1,100 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Bautismo · Ámbar</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --rose-light: #fbf5f4;
-      --rose-card: #ffffff;
-      --rose-accent: #dd9b9b;
-      --rose-accent-dark: #b86b6b;
-      --gold-soft: #cbb493;
-      --text-main: #3d3434;
-      --text-muted: #7d7272;
-      --radius: 24px;
-      --shadow: 0 16px 36px rgba(184, 107, 107, 0.08);
-      --font-serif: 'Cormorant Garamond', Georgia, serif;
-      --font-sans: 'Montserrat', sans-serif;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background-color: var(--rose-light);
-      color: var(--text-main);
-      font-family: var(--font-sans);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      padding: 24px 16px 60px;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 440px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 8px;
-    }
-
-    .music-btn {
-      background: #ffffff;
-      border: 1px solid rgba(221, 155, 155, 0.3);
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      color: var(--rose-accent-dark);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-    }
-
-    .card {
-      background: var(--rose-card);
-      border-radius: var(--radius);
-      padding: 32px 24px;
-      text-align: center;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(221, 155, 155, 0.2);
-    }
-
-    .cross-icon {
-      color: var(--gold-soft);
-      font-size: 1.8rem;
-      margin-bottom: 8px;
-    }
-
-    .title-sub {
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      font-size: 0.8rem;
-      color: var(--rose-accent-dark);
-      margin-bottom: 6px;
-      font-weight: 500;
-    }
-
-    .title-name {
-      font-family: var(--font-serif);
-      font-size: 3.2rem;
-      font-weight: 700;
-      color: var(--text-main);
-      line-height: 1.1;
-      margin-bottom: 20px;
-    }
-
-    .avatar-wrapper {
-      position: relative;
-      width: 210px;
-      height: 210px;
-      margin: 0 auto 16px;
-      border-radius: 50%;
-      padding: 6px;
-      background: linear-gradient(135deg, #f7dcd6 0%, #ecd4b8 100%);
-      box-shadow: 0 10px 24px rgba(221, 155, 155, 0.25);
-    }
-
-    .avatar-circle {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      overflow: hidden;
-      background: #fff;
-    }
-
-    .avatar-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 20%;
-    }
-
-    .quote {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 1.15rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-      margin: 20px 0;
-    }
-
-    .parents-box {
-      border-top: 1px solid #f2e2e2;
-      border-bottom: 1px solid #f2e2e2;
-      padding: 14px 0;
-      margin: 18px 0;
-    }
-
-    .parents-box h4 {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--rose-accent-dark);
-      margin-bottom: 6px;
-    }
-
-    .parents-box p {
-      font-family: var(--font-serif);
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--text-main);
-    }
-
-    .timer-section {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin: 20px 0 10px;
-    }
-
-    .timer-slot {
-      background: #fbf5f4;
-      border: 1px solid #edd4d4;
-      border-radius: 14px;
-      padding: 10px 4px;
-    }
-
-    .timer-slot .num {
-      font-family: var(--font-serif);
-      font-size: 1.7rem;
-      font-weight: 700;
-      color: var(--rose-accent-dark);
-      line-height: 1;
-    }
-
-    .timer-slot .lbl {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    .info-card {
-      background: var(--rose-card);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(221, 155, 155, 0.2);
-      text-align: center;
-    }
-
-    .icon-badge {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: #fdf2f1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 12px;
-      font-size: 1.3rem;
-      color: var(--rose-accent);
-    }
-
-    .info-card h3 {
-      font-family: var(--font-serif);
-      font-size: 1.6rem;
-      margin-bottom: 6px;
-    }
-
-    .info-card .highlight {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--rose-accent-dark);
-      margin-bottom: 6px;
-    }
-
-    .info-card .address {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-      margin-bottom: 16px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      padding: 14px 20px;
-      border-radius: 30px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
-      border: none;
-      transition: transform 0.15s, opacity 0.15s;
-    }
-    .btn:active { transform: scale(0.98); }
-
-    .btn-maps {
-      background: #fff;
-      color: var(--text-main);
-      border: 1px solid #dfc3c3;
-    }
-
-    .btn-whatsapp {
-      background: #25D366;
-      color: #fff;
-      box-shadow: 0 8px 18px rgba(37, 211, 102, 0.25);
-    }
-
-    /* Grilla de Galería */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .gallery-item {
-      aspect-ratio: 1;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-      cursor: pointer;
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.2s;
-    }
-
-    .gallery-item img:hover {
-      transform: scale(1.05);
-    }
-
-    /* Modal Visor / Carrusel */
-    .lightbox-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.9);
-      backdrop-filter: blur(6px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 200;
-      touch-action: pan-y;
-    }
-
-    .lightbox-content {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-    }
-
-    .lightbox-img {
-      max-width: 90vw;
-      max-height: 82vh;
-      border-radius: 12px;
-      object-fit: contain;
-      user-select: none;
-      transition: opacity 0.2s;
-    }
-
-    .nav-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: #fff;
-      font-size: 1.8rem;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      backdrop-filter: blur(4px);
-      transition: background 0.2s;
-      user-select: none;
-    }
-
-    .nav-arrow:hover {
-      background: rgba(255, 255, 255, 0.4);
-    }
-
-    .arrow-left { left: 16px; }
-    .arrow-right { right: 16px; }
-
-    .close-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: rgba(255, 255, 255, 0.2);
-      border: none;
-      color: #fff;
-      font-size: 1.5rem;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .counter-badge {
-      position: absolute;
-      bottom: 24px;
-      background: rgba(0,0,0,0.5);
-      color: #fff;
-      padding: 6px 14px;
-      border-radius: 16px;
-      font-size: 0.85rem;
-      letter-spacing: 1px;
-    }
-
-    /* Modal RSVP */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(4px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      z-index: 100;
-    }
-
-    .modal-box {
-      background: #fff;
-      border-radius: 20px;
-      padding: 24px;
-      width: 100%;
-      max-width: 380px;
-    }
-
-    .modal-box h3 {
-      font-family: var(--font-serif);
-      font-size: 1.5rem;
-      margin-bottom: 12px;
-      text-align: center;
-    }
-
-    .form-group {
-      margin-bottom: 12px;
-      text-align: left;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      margin-bottom: 4px;
-      color: var(--text-muted);
-    }
-
-    .form-group input, .form-group select {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      font-family: inherit;
-    }
-
-    .footer {
-      text-align: center;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 12px;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="container">
-    <div class="top-bar">
-      <button class="music-btn" id="musicToggle">Tocar música 🎵</button>
-      <span style="font-size: 0.75rem; color: var(--rose-accent-dark); font-weight: 500;">Bautismo de Ámbar</span>
-    </div>
-
-    <!-- Tarjeta Principal -->
-    <div class="card">
-      <div class="cross-icon">✝</div>
-      <div class="title-sub">Mi Bautismo</div>
-      <h1 class="title-name">Ámbar</h1>
-
-      <div class="avatar-wrapper">
-        <div class="avatar-circle">
-          <img id="babyPhoto" class="avatar-img" src="foto.jpg" alt="Ámbar">
-        </div>
-      </div>
-
-      <p class="quote">
-        "En este día tan especial recibo la bendición de Dios, rodeada del amor de mi familia."
-      </p>
-
-      <div class="parents-box">
-        <h4>Mis Papás</h4>
-        <p>Cynthia Corró &amp; Alejandro Rothlisberger</p>
-      </div>
-
-      <div class="timer-section">
-        <div class="timer-slot">
-          <div class="num" id="days">--</div>
-          <div class="lbl">Días</div>
-        </div>
-        <div class="timer-slot">
-          <div class="num" id="hours">--</div>
-          <div class="lbl">Horas</div>
-        </div>
-        <div class="timer-slot">
-          <div class="num" id="minutes">--</div>
-          <div class="lbl">Min</div>
-        </div>
-        <div class="timer-slot">
-          <div class="num" id="seconds">--</div>
-          <div class="lbl">Seg</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Ceremonia -->
-    <div class="info-card">
-      <div class="icon-badge">⛪</div>
-      <h3>Ceremonia</h3>
-      <div class="highlight">Sábado 14 de Noviembre de 2026 · 11:00 hs</div>
-      <p class="address">
-        <strong>Parroquia Nuestra Señora de Luján</strong><br>
-        (Verbo Divino)<br>
-        C. Bibiano Meza 2214, Resistencia, Chaco
-      </p>
-      <a href="https://maps.google.com/?q=C.+Bibiano+Meza+2214,+Resistencia,+Chaco" target="_blank" class="btn btn-maps">
-        📍 Cómo llegar a la Misa
-      </a>
-    </div>
-
-    <!-- Festejo / Salón (Provisorio) -->
-    <div class="info-card">
-      <div class="icon-badge">🥂</div>
-      <h3>Festejo</h3>
-      <div class="highlight">Sábado 14 de Noviembre · Al término de la misa</div>
-      <p class="address">
-        <strong>Salón de Eventos</strong><br>
-        (A confirmar / Lugar provisorio)<br>
-        Resistencia, Chaco
-      </p>
-      <a href="https://maps.google.com/?q=Resistencia,+Chaco" target="_blank" class="btn btn-maps">
-        📍 Ubicación del Festejo
-      </a>
-    </div>
-
-    <!-- Galería con Carrusel -->
-    <div class="info-card">
-      <div class="icon-badge">📷</div>
-      <h3>Momentos Especiales</h3>
-      <p class="address">Tocá cualquier foto para verla en pantalla completa y recorrer el álbum</p>
-      <div class="gallery-grid">
-        <div class="gallery-item" onclick="openCarousel(0)">
-          <img src="foto1.jpg" alt="Ámbar 1">
-        </div>
-        <div class="gallery-item" onclick="openCarousel(1)">
-          <img src="foto2.jpg" alt="Ámbar 2">
-        </div>
-        <div class="gallery-item" onclick="openCarousel(2)">
-          <img src="foto3.jpg" alt="Ámbar 3">
-        </div>
-        <div class="gallery-item" onclick="openCarousel(3)">
-          <img src="foto4.jpg" alt="Ámbar 4">
-        </div>
-        <div class="gallery-item" onclick="openCarousel(4)">
-          <img src="foto5.jpg" alt="Ámbar con papás">
-        </div>
-        <div class="gallery-item" onclick="openCarousel(5)">
-          <img src="foto6.jpg" alt="Ámbar 6">
-        </div>
-      </div>
-    </div>
-
-    <!-- Confirmación RSVP -->
-    <div class="info-card">
-      <div class="icon-badge">💌</div>
-      <h3>Confirmar Asistencia</h3>
-      <p class="address">Por favor confirmanos si vas a poder acompañarnos antes del evento.</p>
-      
-      <button class="btn btn-whatsapp" id="openRsvpBtn">
-        Confirmar por WhatsApp
-      </button>
-    </div>
-
-    <div class="footer">
-      Esperamos compartir este hermoso momento con vos ❤️
-    </div>
-  </div>
-
-  <!-- Modal RSVP -->
-  <div class="modal-overlay" id="rsvpModal">
-    <div class="modal-box">
-      <h3>Confirmar Asistencia</h3>
-      <form id="rsvpForm">
-        <div class="form-group">
-          <label>Nombre y Apellido / Familia</label>
-          <input type="text" id="guestName" placeholder="Ej: Familia López" required>
-        </div>
-        <div class="form-group">
-          <label>¿Cuántas personas asisten?</label>
-          <select id="guestCount">
-            <option value="1 persona">1 persona</option>
-            <option value="2 personas" selected>2 personas</option>
-            <option value="3 personas">3 personas</option>
-            <option value="4 o más personas">4 o más personas</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Mensaje o dedicatoria (opcional)</label>
-          <input type="text" id="guestMsg" placeholder="¡Ahí estaremos con muchas ganas!">
-        </div>
-        <button type="submit" class="btn btn-whatsapp" style="margin-top: 10px;">
-          Enviar Confirmación
-        </button>
-        <button type="button" class="btn btn-maps" id="closeRsvpBtn" style="margin-top: 8px;">
-          Cancelar
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Modal Carrusel / Visor -->
-  <div class="lightbox-overlay" id="carouselOverlay">
-    <button class="close-btn" onclick="closeCarousel()">✕</button>
-    
-    <div class="lightbox-content" id="carouselContent">
-      <button class="nav-arrow arrow-left" onclick="prevPhoto(event)">❮</button>
-      <img id="carouselImg" class="lightbox-img" src="" alt="Foto carrusel">
-      <button class="nav-arrow arrow-right" onclick="nextPhoto(event)">❯</button>
-      <div class="counter-badge" id="photoCounter">1 / 6</div>
-    </div>
-  </div>
-
-  <script>
-    const TARGET_DATE = new Date(2026, 10, 14, 11, 0, 0).getTime();
-    const PHONE = "5493624868316";
-
-    // Contador
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const diff = TARGET_DATE - now;
-
-      if (diff <= 0) {
-        document.getElementById('days').innerText = "0";
-        document.getElementById('hours').innerText = "0";
-        document.getElementById('minutes').innerText = "0";
-        document.getElementById('seconds').innerText = "0";
-        return;
-      }
-
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-      document.getElementById('days').innerText = d;
-      document.getElementById('hours').innerText = h;
-      document.getElementById('minutes').innerText = m;
-      document.getElementById('seconds').innerText = s;
-    }
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-
-    // RSVP Modal
-    const rsvpModal = document.getElementById('rsvpModal');
-    const openRsvpBtn = document.getElementById('openRsvpBtn');
-    const closeRsvpBtn = document.getElementById('closeRsvpBtn');
-    const rsvpForm = document.getElementById('rsvpForm');
-
-    openRsvpBtn.addEventListener('click', () => rsvpModal.style.display = 'flex');
-    closeRsvpBtn.addEventListener('click', () => rsvpModal.style.display = 'none');
-
-    rsvpForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('guestName').value;
-      const count = document.getElementById('guestCount').value;
-      const msg = document.getElementById('guestMsg').value;
-
-      let text = `¡Hola! Confirmo mi asistencia al bautismo de Ámbar ✨%0A%0A`;
-      text += `*Familia/Nombre:* ${encodeURIComponent(name)}%0A`;
-      text += `*Asistentes:* ${encodeURIComponent(count)}%0A`;
-      if (msg) text += `*Mensaje:* ${encodeURIComponent(msg)}`;
-
-      window.open(`https://wa.me/${PHONE}?text=${text}`, '_blank');
-      rsvpModal.style.display = 'none';
-    });
-
-    // Carrusel de Galería
-    const photoList = [
-      'foto1.jpg',
-      'foto2.jpg',
-      'foto3.jpg',
-      'foto4.jpg',
-      'foto5.jpg',
-      'foto6.jpg'
-    ];
-    let currentIndex = 0;
-
-    const carouselOverlay = document.getElementById('carouselOverlay');
-    const carouselImg = document.getElementById('carouselImg');
-    const photoCounter = document.getElementById('photoCounter');
-
-    function openCarousel(index) {
-      currentIndex = index;
-      updateCarouselView();
-      carouselOverlay.style.display = 'flex';
-    }
-
-    function closeCarousel() {
-      carouselOverlay.style.display = 'none';
-    }
-
-    function updateCarouselView() {
-      carouselImg.style.opacity = '0.3';
-      setTimeout(() => {
-        carouselImg.src = photoList[currentIndex];
-        photoCounter.innerText = `${currentIndex + 1} / ${photoList.length}`;
-        carouselImg.style.opacity = '1';
-      }, 150);
-    }
-
-    function prevPhoto(e) {
-      if (e) e.stopPropagation();
-      currentIndex = (currentIndex === 0) ? photoList.length - 1 : currentIndex - 1;
-      updateCarouselView();
-    }
-
-    function nextPhoto(e) {
-      if (e) e.stopPropagation();
-      currentIndex = (currentIndex === photoList.length - 1) ? 0 : currentIndex + 1;
-      updateCarouselView();
-    }
-
-    // Navegación con teclado (flechitas y escape)
-    document.addEventListener('keydown', (e) => {
-      if (carouselOverlay.style.display === 'flex') {
-        if (e.key === 'ArrowLeft') prevPhoto();
-        if (e.key === 'ArrowRight') nextPhoto();
-        if (e.key === 'Escape') closeCarousel();
-      }
-    });
-
-    // Deslizar con el dedo en celular (Swipe)
-    let touchStartX = 0;
-    let touchEndX = 0;
-    carouselOverlay.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    carouselOverlay.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      if (touchEndX < touchStartX - 50) nextPhoto();
-      if (touchEndX > touchStartX + 50) prevPhoto();
-    }, { passive: true });
-
-    // Música
-    let audioCtx = null;
-    let isPlaying = false;
-    let timerId = null;
-
-    const musicBtn = document.getElementById('musicToggle');
-    musicBtn.addEventListener('click', () => {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (isPlaying) {
-        isPlaying = false;
-        clearInterval(timerId);
-        musicBtn.innerText = "Tocar música 🎵";
-      } else {
-        isPlaying = true;
-        musicBtn.innerText = "Pausar música ⏸️";
-        playLullabyMelody();
-      }
-    });
-
-    function playNote(freq, start, duration) {
-      if (!isPlaying || !audioCtx) return;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, start);
-      gain.gain.setValueAtTime(0.001, start);
-      gain.gain.exponentialRampToValueAtTime(0.12, start + 0.05);
-      gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start(start);
-      osc.stop(start + duration);
-    }
-
-    function playLullabyMelody() {
-      const notes = [
-        { f: 523.25, d: 0.6 }, { f: 587.33, d: 0.6 }, { f: 659.25, d: 0.8 },
-        { f: 523.25, d: 0.6 }, { f: 659.25, d: 0.6 }, { f: 783.99, d: 1.0 },
-        { f: 659.25, d: 0.6 }, { f: 587.33, d: 0.6 }, { f: 523.25, d: 1.2 }
-      ];
-      let now = audioCtx.currentTime;
-      notes.forEach((n, i) => {
-        playNote(n.f, now + (i * 0.7), n.d);
-      });
-      timerId = setInterval(() => {
-        if (!isPlaying) return;
-        now = audioCtx.currentTime;
-        notes.forEach((n, i) => {
-          playNote(n.f, now + (i * 0.7), n.d);
-        });
-      }, notes.length * 700 + 1000);
-    }
-  </script>
-</body>
-</html>
+// Control de música: "Somewhere Over the Rainbow" (Cajita Musical)
+let audioCtx = null;
+let isPlaying = false;
+let timeoutIds = [];
+
+const musicBtn = document.getElementById('musicToggle');
+
+// Frecuencias de notas musicales (Escala en Do mayor)
+const N = {
+  C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23, G4: 392.00, A4: 440.00, B4: 493.88,
+  C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99, A5: 880.00, B5: 987.77
+};
+
+// Secuencia melódica de "Somewhere Over the Rainbow"
+// [nota, duración en segundos, tiempo de inicio en compás]
+const rainbowMelody = [
+  // "Some - where..." (C4 -> C5)
+  { f: N.C4, d: 0.9, t: 0.0 },
+  { f: N.C5, d: 1.1, t: 1.0 },
+  // "...o-ver the rain-bow" (B4 -> G4 -> A4 -> B4 -> C5)
+  { f: N.B4, d: 0.6, t: 2.2 },
+  { f: N.G4, d: 0.4, t: 2.8 },
+  { f: N.A4, d: 0.5, t: 3.3 },
+  { f: N.B4, d: 0.5, t: 3.9 },
+  { f: N.C5, d: 1.2, t: 4.5 },
+  // "...way up high" (C5 -> A4 -> G4)
+  { f: N.C5, d: 0.8, t: 6.0 },
+  { f: N.A4, d: 0.8, t: 6.9 },
+  { f: N.G4, d: 1.4, t: 7.8 },
+
+  // "There's a land that I heard of..."
+  { f: N.C4, d: 0.9, t: 9.5 },
+  { f: N.A4, d: 1.0, t: 10.5 },
+  { f: N.G4, d: 0.6, t: 11.6 },
+  { f: N.E4, d: 0.5, t: 12.3 },
+  { f: N.F4, d: 0.5, t: 12.9 },
+  { f: N.G4, d: 0.5, t: 13.5 },
+  { f: N.A4, d: 1.1, t: 14.1 },
+  // "...once in a lul-la-by"
+  { f: N.F4, d: 0.7, t: 15.4 },
+  { f: N.D4, d: 0.7, t: 16.2 },
+  { f: N.C4, d: 1.6, t: 17.0 }
+];
+
+function playBellNote(freq, startTime, duration) {
+  if (!isPlaying || !audioCtx) return;
+
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+
+  // Sonido tipo cajita de música con caída suave
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(freq, startTime);
+
+  gain.gain.setValueAtTime(0.0001, startTime);
+  gain.gain.exponentialRampToValueAtTime(0.18, startTime + 0.04);
+  gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+
+  osc.start(startTime);
+  osc.stop(startTime + duration + 0.1);
+}
+
+function startRainbowLoop() {
+  if (!isPlaying) return;
+  const now = audioCtx.currentTime;
+
+  rainbowMelody.forEach(note => {
+    playBellNote(note.f, now + note.t, note.d);
+  });
+
+  // Repite el ciclo completo suavemente cada 19.5 segundos
+  const loopId = setTimeout(() => {
+    if (isPlaying) startRainbowLoop();
+  }, 19500);
+  timeoutIds.push(loopId);
+}
+
+function stopMusic() {
+  isPlaying = false;
+  timeoutIds.forEach(id => clearTimeout(id));
+  timeoutIds = [];
+  musicBtn.innerText = "Tocar música 🎵";
+}
+
+musicBtn.addEventListener('click', () => {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+
+  if (isPlaying) {
+    stopMusic();
+  } else {
+    isPlaying = true;
+    musicBtn.innerText = "Pausar música ⏸️";
+    startRainbowLoop();
+  }
+});
