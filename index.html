@@ -254,13 +254,7 @@
       box-shadow: 0 8px 18px rgba(37, 211, 102, 0.25);
     }
 
-    .btn-gift {
-      background: #faf6f5;
-      color: var(--rose-accent-dark);
-      border: 1px solid #ebd8d8;
-    }
-
-    /* Galería de fotos */
+    /* Grilla de Galería */
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -269,7 +263,6 @@
     }
 
     .gallery-item {
-      position: relative;
       aspect-ratio: 1;
       border-radius: 14px;
       overflow: hidden;
@@ -288,32 +281,93 @@
       transform: scale(1.05);
     }
 
-    /* Cuadro de datos de regalo */
-    .gift-details {
-      margin-top: 14px;
-      padding: 14px;
-      background: #fbf5f4;
-      border: 1px dashed #dfc3c3;
-      border-radius: 14px;
+    /* Modal Visor / Carrusel */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      backdrop-filter: blur(6px);
       display: none;
-      text-align: left;
-      font-size: 0.85rem;
-    }
-
-    .copy-pill {
-      background: #fff;
-      border: 1px solid #dfc3c3;
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-weight: 600;
-      display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin: 6px 0;
-      cursor: pointer;
+      justify-content: center;
+      z-index: 200;
+      touch-action: pan-y;
     }
 
-    /* Modales */
+    .lightbox-content {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .lightbox-img {
+      max-width: 90vw;
+      max-height: 82vh;
+      border-radius: 12px;
+      object-fit: contain;
+      user-select: none;
+      transition: opacity 0.2s;
+    }
+
+    .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      font-size: 1.8rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      transition: background 0.2s;
+      user-select: none;
+    }
+
+    .nav-arrow:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .arrow-left { left: 16px; }
+    .arrow-right { right: 16px; }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .counter-badge {
+      position: absolute;
+      bottom: 24px;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+    }
+
+    /* Modal RSVP */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -360,14 +414,6 @@
       border-radius: 10px;
       border: 1px solid #ddd;
       font-family: inherit;
-    }
-
-    /* Modal de imagen ampliada */
-    #lightboxModal img {
-      max-width: 90vw;
-      max-height: 80vh;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
     .footer {
@@ -457,46 +503,30 @@
       </a>
     </div>
 
-    <!-- Galería de Recuerdos -->
+    <!-- Galería con Carrusel -->
     <div class="info-card">
       <div class="icon-badge">📷</div>
       <h3>Momentos Especiales</h3>
-      <p class="address">Un poquito de mi crecimiento hasta hoy</p>
+      <p class="address">Tocá cualquier foto para verla en pantalla completa y recorrer el álbum</p>
       <div class="gallery-grid">
-        <div class="gallery-item" onclick="openLightbox('foto1.jpg')">
-          <img src="foto1.jpg" alt="Ámbar foto 1">
+        <div class="gallery-item" onclick="openCarousel(0)">
+          <img src="foto1.jpg" alt="Ámbar 1">
         </div>
-        <div class="gallery-item" onclick="openLightbox('foto2.jpg')">
-          <img src="foto2.jpg" alt="Ámbar foto 2">
+        <div class="gallery-item" onclick="openCarousel(1)">
+          <img src="foto2.jpg" alt="Ámbar 2">
         </div>
-        <div class="gallery-item" onclick="openLightbox('foto3.jpg')">
-          <img src="foto3.jpg" alt="Ámbar foto 3">
+        <div class="gallery-item" onclick="openCarousel(2)">
+          <img src="foto3.jpg" alt="Ámbar 3">
         </div>
-      </div>
-    </div>
-
-    <!-- Regalo / Sugerencia -->
-    <div class="info-card">
-      <div class="icon-badge">🎁</div>
-      <h3>Regalo</h3>
-      <p class="address">
-        Tu presencia es nuestro mejor regalo. Si deseás hacerme un presente para acompañar mis primeros pasos, te dejamos los datos:
-      </p>
-      <button class="btn btn-gift" id="toggleGiftBtn">
-        Ver datos de cuenta / Alias
-      </button>
-
-      <div class="gift-details" id="giftBox">
-        <p style="margin-bottom: 6px; color: var(--text-muted); font-size: 0.8rem;">Tocá para copiar el dato:</p>
-        <div class="copy-pill" onclick="copyText('BAUTISMO.AMBAR')">
-          <span><strong>Alias:</strong> BAUTISMO.AMBAR</span>
-          <span style="font-size: 0.75rem; color: var(--rose-accent-dark);">Copiar 📋</span>
+        <div class="gallery-item" onclick="openCarousel(3)">
+          <img src="foto4.jpg" alt="Ámbar 4">
         </div>
-        <div class="copy-pill" onclick="copyText('0000003100010000000000')">
-          <span><strong>CBU:</strong> 0000003100010000000000</span>
-          <span style="font-size: 0.75rem; color: var(--rose-accent-dark);">Copiar 📋</span>
+        <div class="gallery-item" onclick="openCarousel(4)">
+          <img src="foto5.jpg" alt="Ámbar con papás">
         </div>
-        <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Titular: Alejandro Rothlisberger</p>
+        <div class="gallery-item" onclick="openCarousel(5)">
+          <img src="foto6.jpg" alt="Ámbar 6">
+        </div>
       </div>
     </div>
 
@@ -548,15 +578,23 @@
     </div>
   </div>
 
-  <!-- Modal Lightbox (Foto ampliada) -->
-  <div class="modal-overlay" id="lightboxModal" onclick="closeLightbox()">
-    <img id="lightboxImg" src="" alt="Ámbar ampliada">
+  <!-- Modal Carrusel / Visor -->
+  <div class="lightbox-overlay" id="carouselOverlay">
+    <button class="close-btn" onclick="closeCarousel()">✕</button>
+    
+    <div class="lightbox-content" id="carouselContent">
+      <button class="nav-arrow arrow-left" onclick="prevPhoto(event)">❮</button>
+      <img id="carouselImg" class="lightbox-img" src="" alt="Foto carrusel">
+      <button class="nav-arrow arrow-right" onclick="nextPhoto(event)">❯</button>
+      <div class="counter-badge" id="photoCounter">1 / 6</div>
+    </div>
   </div>
 
   <script>
     const TARGET_DATE = new Date(2026, 10, 14, 11, 0, 0).getTime();
     const PHONE = "5493624868316";
 
+    // Contador
     function updateCountdown() {
       const now = new Date().getTime();
       const diff = TARGET_DATE - now;
@@ -582,7 +620,7 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // RSVP
+    // RSVP Modal
     const rsvpModal = document.getElementById('rsvpModal');
     const openRsvpBtn = document.getElementById('openRsvpBtn');
     const closeRsvpBtn = document.getElementById('closeRsvpBtn');
@@ -606,39 +644,75 @@
       rsvpModal.style.display = 'none';
     });
 
-    // Regalo toggle
-    const toggleGiftBtn = document.getElementById('toggleGiftBtn');
-    const giftBox = document.getElementById('giftBox');
-    toggleGiftBtn.addEventListener('click', () => {
-      if (giftBox.style.display === 'block') {
-        giftBox.style.display = 'none';
-        toggleGiftBtn.innerText = 'Ver datos de cuenta / Alias';
-      } else {
-        giftBox.style.display = 'block';
-        toggleGiftBtn.innerText = 'Ocultar datos';
+    // Carrusel de Galería
+    const photoList = [
+      'foto1.jpg',
+      'foto2.jpg',
+      'foto3.jpg',
+      'foto4.jpg',
+      'foto5.jpg',
+      'foto6.jpg'
+    ];
+    let currentIndex = 0;
+
+    const carouselOverlay = document.getElementById('carouselOverlay');
+    const carouselImg = document.getElementById('carouselImg');
+    const photoCounter = document.getElementById('photoCounter');
+
+    function openCarousel(index) {
+      currentIndex = index;
+      updateCarouselView();
+      carouselOverlay.style.display = 'flex';
+    }
+
+    function closeCarousel() {
+      carouselOverlay.style.display = 'none';
+    }
+
+    function updateCarouselView() {
+      carouselImg.style.opacity = '0.3';
+      setTimeout(() => {
+        carouselImg.src = photoList[currentIndex];
+        photoCounter.innerText = `${currentIndex + 1} / ${photoList.length}`;
+        carouselImg.style.opacity = '1';
+      }, 150);
+    }
+
+    function prevPhoto(e) {
+      if (e) e.stopPropagation();
+      currentIndex = (currentIndex === 0) ? photoList.length - 1 : currentIndex - 1;
+      updateCarouselView();
+    }
+
+    function nextPhoto(e) {
+      if (e) e.stopPropagation();
+      currentIndex = (currentIndex === photoList.length - 1) ? 0 : currentIndex + 1;
+      updateCarouselView();
+    }
+
+    // Navegación con teclado (flechitas y escape)
+    document.addEventListener('keydown', (e) => {
+      if (carouselOverlay.style.display === 'flex') {
+        if (e.key === 'ArrowLeft') prevPhoto();
+        if (e.key === 'ArrowRight') nextPhoto();
+        if (e.key === 'Escape') closeCarousel();
       }
     });
 
-    function copyText(str) {
-      navigator.clipboard.writeText(str).then(() => {
-        alert("¡Copiado al portapapeles: " + str + "!");
-      });
-    }
+    // Deslizar con el dedo en celular (Swipe)
+    let touchStartX = 0;
+    let touchEndX = 0;
+    carouselOverlay.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
 
-    // Lightbox
-    const lightboxModal = document.getElementById('lightboxModal');
-    const lightboxImg = document.getElementById('lightboxImg');
+    carouselOverlay.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchEndX < touchStartX - 50) nextPhoto();
+      if (touchEndX > touchStartX + 50) prevPhoto();
+    }, { passive: true });
 
-    function openLightbox(src) {
-      lightboxImg.src = src;
-      lightboxModal.style.display = 'flex';
-    }
-
-    function closeLightbox() {
-      lightboxModal.style.display = 'none';
-    }
-
-    // Música de cuna
+    // Música
     let audioCtx = null;
     let isPlaying = false;
     let timerId = null;
