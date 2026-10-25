@@ -222,7 +222,24 @@
       font-size: 0.85rem;
       color: var(--text-muted);
       line-height: 1.4;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
+    }
+
+    .basket-notice {
+      background: #fff8f6;
+      border: 1px dashed var(--rose-accent);
+      border-radius: 14px;
+      padding: 12px;
+      margin: 12px 0 16px;
+      font-size: 0.82rem;
+      color: var(--rose-accent-dark);
+      line-height: 1.4;
+    }
+
+    .basket-notice strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 0.85rem;
     }
 
     .btn {
@@ -283,7 +300,7 @@
       object-fit: cover;
     }
 
-    /* Visor / Carrusel Modal - Arreglo de cierre y z-index */
+    /* Visor / Carrusel Modal */
     .lightbox-overlay {
       position: fixed;
       inset: 0;
@@ -291,7 +308,7 @@
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 9999; /* Máxima prioridad */
+      z-index: 9999;
       touch-action: pan-y;
     }
 
@@ -314,7 +331,6 @@
       z-index: 10000;
     }
 
-    /* Botón de cierre agrandado y bien accesible en celulares */
     .close-btn {
       position: fixed;
       top: 18px;
@@ -330,11 +346,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 10002; /* Siempre por encima de todo */
+      z-index: 10002;
       backdrop-filter: blur(4px);
-    }
-    .close-btn:active {
-      background: rgba(255, 255, 255, 0.6);
     }
 
     .nav-arrow {
@@ -425,7 +438,7 @@
       <span style="font-size: 0.75rem; color: var(--rose-accent-dark); font-weight: 500;">Bautismo de Ámbar</span>
     </div>
 
-    <!-- Portada -->
+    <!-- Portada Principal -->
     <div class="card">
       <div class="cross-icon">✝</div>
       <div class="title-sub">Mi Bautismo</div>
@@ -470,7 +483,7 @@
     <div class="info-card">
       <div class="icon-badge">⛪</div>
       <h3>Ceremonia</h3>
-      <div class="highlight">Sábado 14 de Noviembre de 2026 · 11:00 hs</div>
+      <div class="highlight">Sábado 14 de Noviembre de 2026 · 17:00 hs</div>
       <p class="address">
         <strong>Parroquia Nuestra Señora de Luján</strong><br>
         (Verbo Divino)<br>
@@ -479,23 +492,29 @@
       <a href="https://maps.google.com/?q=C.+Bibiano+Meza+2214,+Resistencia,+Chaco" target="_blank" class="btn btn-maps">
         📍 Cómo llegar a la Misa
       </a>
-      <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Bautismo+de+%C3%81mbar&dates=20261114T140000Z/20261114T160000Z&details=Ceremonia+de+bautismo+de+%C3%81mbar+en+Parroquia+Nuestra+Se%C3%B1ora+de+Luj%C3%A1n&location=C.+Bibiano+Meza+2214,+Resistencia,+Chaco" target="_blank" class="btn btn-cal">
-        📅 Agendar en mi Calendario
+      <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Bautismo+de+%C3%81mbar&dates=20261114T200000Z/20261114T220000Z&details=Ceremonia+de+bautismo+de+%C3%81mbar+en+Parroquia+Nuestra+Se%C3%B1ora+de+Luj%C3%A1n&location=C.+Bibiano+Meza+2214,+Resistencia,+Chaco" target="_blank" class="btn btn-cal">
+        📅 Agendar Misa en Calendario
       </a>
     </div>
 
-    <!-- Festejo -->
+    <!-- Festejo en el Quincho -->
     <div class="info-card">
       <div class="icon-badge">🥂</div>
       <h3>Festejo</h3>
-      <div class="highlight">Sábado 14 de Noviembre · Al término de la misa</div>
+      <div class="highlight">Sábado 14 de Noviembre · A partir de las 21:00 hs</div>
       <p class="address">
-        <strong>Salón de Eventos</strong><br>
-        (A confirmar / Lugar provisorio)<br>
-        Resistencia, Chaco
+        <strong>Quincho</strong><br>
+        Don Bosco 1925, Resistencia<br>
+        <span style="font-size: 0.8rem; color: var(--rose-accent-dark);">(Entre calle 11 y 12 · A 3 cuadras de Av. 9 de Julio)</span>
       </p>
-      <a href="https://maps.google.com/?q=Resistencia,+Chaco" target="_blank" class="btn btn-maps">
-        📍 Ubicación del Festejo
+
+      <div class="basket-notice">
+        🧺 <strong>Compartir a la canasta</strong>
+        Te esperamos para compartir una hermosa noche. Traer bebidas, vaso y algo para compartir.
+      </div>
+
+      <a href="https://maps.google.com/?q=Don+Bosco+1925,+Resistencia,+Chaco" target="_blank" class="btn btn-maps">
+        📍 Cómo llegar al Quincho
       </a>
     </div>
 
@@ -561,7 +580,7 @@
     </div>
   </div>
 
-  <!-- Modal Carrusel con Cierre Robusto -->
+  <!-- Modal Carrusel con Cierre -->
   <div class="lightbox-overlay" id="carouselOverlay">
     <button class="close-btn" id="btnCerrarModal" type="button" aria-label="Cerrar">✕</button>
     <div class="lightbox-content" id="carouselContainer">
@@ -572,8 +591,8 @@
   </div>
 
   <script>
-    // Contador regresivo
-    const TARGET_DATE = new Date(2026, 10, 14, 11, 0, 0).getTime();
+    // Contador regresivo ajustado a las 17:00 hs
+    const TARGET_DATE = new Date(2026, 10, 14, 17, 0, 0).getTime();
     function updateCountdown() {
       const now = new Date().getTime();
       const diff = TARGET_DATE - now;
@@ -620,21 +639,21 @@
       carouselImg.src = '';
     }
 
-    // Cerrar tocando el botón de la cruz directamente
+    // Cerrar tocando la cruz
     btnCerrarModal.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
       closeCarousel();
     });
 
-    // Cerrar también tocando cualquier parte del fondo oscuro
+    // Cerrar tocando el fondo oscuro
     carouselOverlay.addEventListener('click', (e) => {
       if (e.target === carouselOverlay || e.target.id === 'carouselContainer') {
         closeCarousel();
       }
     });
 
-    // Flechas de navegación
+    // Navegación
     document.getElementById('prevBtn').addEventListener('click', (e) => {
       e.stopPropagation();
       currentIndex = (currentIndex === 0) ? photoList.length - 1 : currentIndex - 1;
@@ -647,14 +666,13 @@
       carouselImg.src = photoList[currentIndex];
     });
 
-    // Cerrar con la tecla Escape si están en PC
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && carouselOverlay.style.display === 'flex') {
         closeCarousel();
       }
     });
 
-    // Deslizar con el dedo en celular (Swipe)
+    // Deslizar en táctil
     let touchStartX = 0;
     carouselOverlay.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
@@ -704,5 +722,3 @@
   </script>
 </body>
 </html>
-    
-     
