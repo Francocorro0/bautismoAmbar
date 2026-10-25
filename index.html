@@ -6,7 +6,7 @@
   <title>Mi Bautismo · Ámbar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --rose-light: #fbf5f4;
@@ -225,21 +225,34 @@
       margin-bottom: 14px;
     }
 
-    .basket-notice {
-      background: #fff8f6;
-      border: 1px dashed var(--rose-accent);
-      border-radius: 14px;
-      padding: 12px;
-      margin: 12px 0 16px;
-      font-size: 0.82rem;
-      color: var(--rose-accent-dark);
-      line-height: 1.4;
+    /* Recuadro destacado a la canasta */
+    .basket-highlight {
+      background: linear-gradient(135deg, #c47777 0%, #ab5d5d 100%);
+      color: #ffffff;
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin: 16px 0 18px;
+      box-shadow: 0 8px 20px rgba(184, 107, 107, 0.25);
+      text-align: center;
     }
 
-    .basket-notice strong {
-      display: block;
-      margin-bottom: 2px;
-      font-size: 0.85rem;
+    .basket-highlight .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 6px;
+    }
+
+    .basket-highlight p {
+      font-size: 0.88rem;
+      line-height: 1.45;
+      font-weight: 500;
+      margin: 0;
     }
 
     .btn {
@@ -508,9 +521,10 @@
         <span style="font-size: 0.8rem; color: var(--rose-accent-dark);">(Entre calle 11 y 12 · A 3 cuadras de Av. 9 de Julio)</span>
       </p>
 
-      <div class="basket-notice">
-        🧺 <strong>Compartir a la canasta</strong>
-        Te esperamos para compartir una hermosa noche. Traer bebidas, vaso y algo para compartir.
+      <!-- Pastilla destacada visible a primera vista -->
+      <div class="basket-highlight">
+        <span class="tag">🧺 Compartir a la Canasta</span>
+        <p>Traer bebidas, vaso y algo rico para compartir entre todos 🥤🍷</p>
       </div>
 
       <a href="https://maps.google.com/?q=Don+Bosco+1925,+Resistencia,+Chaco" target="_blank" class="btn btn-maps">
@@ -533,7 +547,7 @@
       </div>
     </div>
 
-    <!-- RSVP -->
+    <!-- RSVP con el nuevo número -->
     <div class="info-card">
       <div class="icon-badge">💌</div>
       <h3>Confirmar Asistencia</h3>
@@ -580,7 +594,7 @@
     </div>
   </div>
 
-  <!-- Modal Carrusel con Cierre -->
+  <!-- Modal Carrusel -->
   <div class="lightbox-overlay" id="carouselOverlay">
     <button class="close-btn" id="btnCerrarModal" type="button" aria-label="Cerrar">✕</button>
     <div class="lightbox-content" id="carouselContainer">
@@ -591,8 +605,9 @@
   </div>
 
   <script>
-    // Contador regresivo ajustado a las 17:00 hs
     const TARGET_DATE = new Date(2026, 10, 14, 17, 0, 0).getTime();
+    const PHONE = "5493624902525";
+
     function updateCountdown() {
       const now = new Date().getTime();
       const diff = TARGET_DATE - now;
@@ -617,11 +632,11 @@
       const msg = document.getElementById('guestMsg').value;
       let text = `¡Hola! Confirmo asistencia al bautismo de Ámbar ✨%0A%0A*Familia:* ${encodeURIComponent(name)}%0A*Asistentes:* ${encodeURIComponent(count)}`;
       if (msg) text += `%0A*Mensaje:* ${encodeURIComponent(msg)}`;
-      window.open(`https://wa.me/5493624868316?text=${text}`, '_blank');
+      window.open(`https://wa.me/${PHONE}?text=${text}`, '_blank');
       rsvpModal.style.display = 'none';
     };
 
-    // Galería y visor de imágenes
+    // Galería
     const photoList = ['foto1.jpg', 'foto2.jpg', 'foto3.jpg', 'foto4.jpg', 'foto5.jpg', 'foto6.jpg'];
     let currentIndex = 0;
     const carouselOverlay = document.getElementById('carouselOverlay');
@@ -639,21 +654,18 @@
       carouselImg.src = '';
     }
 
-    // Cerrar tocando la cruz
     btnCerrarModal.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
       closeCarousel();
     });
 
-    // Cerrar tocando el fondo oscuro
     carouselOverlay.addEventListener('click', (e) => {
       if (e.target === carouselOverlay || e.target.id === 'carouselContainer') {
         closeCarousel();
       }
     });
 
-    // Navegación
     document.getElementById('prevBtn').addEventListener('click', (e) => {
       e.stopPropagation();
       currentIndex = (currentIndex === 0) ? photoList.length - 1 : currentIndex - 1;
@@ -689,7 +701,7 @@
       }
     }, { passive: true });
 
-    // Audio con inicio al primer toque o botón
+    // Audio
     const cancion = document.getElementById('cancionReal');
     const musicBtn = document.getElementById('musicToggle');
 
