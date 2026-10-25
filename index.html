@@ -238,7 +238,9 @@
       text-decoration: none;
       cursor: pointer;
       border: none;
+      transition: transform 0.15s;
     }
+    .btn:active { transform: scale(0.98); }
 
     .btn-maps {
       background: #fff;
@@ -259,6 +261,7 @@
       box-shadow: 0 8px 18px rgba(37, 211, 102, 0.25);
     }
 
+    /* Galería */
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -280,14 +283,16 @@
       object-fit: cover;
     }
 
+    /* Visor / Carrusel Modal - Arreglo de cierre y z-index */
     .lightbox-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.92);
+      background: rgba(0, 0, 0, 0.92);
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 200;
+      z-index: 9999; /* Máxima prioridad */
+      touch-action: pan-y;
     }
 
     .lightbox-content {
@@ -297,6 +302,7 @@
       justify-content: center;
       width: 100%;
       height: 100%;
+      padding: 20px;
     }
 
     .lightbox-img {
@@ -304,6 +310,31 @@
       max-height: 80vh;
       border-radius: 12px;
       object-fit: contain;
+      user-select: none;
+      z-index: 10000;
+    }
+
+    /* Botón de cierre agrandado y bien accesible en celulares */
+    .close-btn {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      background: rgba(255, 255, 255, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      color: #ffffff;
+      font-size: 1.8rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10002; /* Siempre por encima de todo */
+      backdrop-filter: blur(4px);
+    }
+    .close-btn:active {
+      background: rgba(255, 255, 255, 0.6);
     }
 
     .nav-arrow {
@@ -314,35 +345,20 @@
       border: none;
       color: #fff;
       font-size: 1.8rem;
-      width: 46px;
-      height: 46px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      z-index: 10001;
     }
 
-    .arrow-left { left: 16px; }
-    .arrow-right { right: 16px; }
+    .arrow-left { left: 12px; }
+    .arrow-right { right: 12px; }
 
-    .close-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: rgba(255, 255, 255, 0.25);
-      border: none;
-      color: #fff;
-      font-size: 1.4rem;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
+    /* Modal RSVP */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -351,7 +367,7 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
-      z-index: 100;
+      z-index: 5000;
     }
 
     .modal-box {
@@ -400,6 +416,7 @@
 </head>
 <body>
 
+  <!-- Audio MP3 -->
   <audio id="cancionReal" src="musica.mp3" loop preload="auto"></audio>
 
   <div class="container">
@@ -482,11 +499,11 @@
       </a>
     </div>
 
-    <!-- Galería -->
+    <!-- Galería con Carrusel -->
     <div class="info-card">
       <div class="icon-badge">📷</div>
       <h3>Momentos Especiales</h3>
-      <p class="address">Tocá una foto para agrandarla y recorrer el álbum</p>
+      <p class="address">Tocá cualquier foto para verla ampliada</p>
       <div class="gallery-grid">
         <div class="gallery-item" onclick="openCarousel(0)"><img src="foto1.jpg" alt="1"></div>
         <div class="gallery-item" onclick="openCarousel(1)"><img src="foto2.jpg" alt="2"></div>
@@ -544,18 +561,18 @@
     </div>
   </div>
 
-  <!-- Modal Carrusel -->
+  <!-- Modal Carrusel con Cierre Robusto -->
   <div class="lightbox-overlay" id="carouselOverlay">
-    <button class="close-btn" onclick="closeCarousel()">✕</button>
-    <div class="lightbox-content">
-      <button class="nav-arrow arrow-left" onclick="prevPhoto(event)">❮</button>
-      <img id="carouselImg" class="lightbox-img" src="" alt="Ámbar">
-      <button class="nav-arrow arrow-right" onclick="nextPhoto(event)">❯</button>
+    <button class="close-btn" id="btnCerrarModal" type="button" aria-label="Cerrar">✕</button>
+    <div class="lightbox-content" id="carouselContainer">
+      <button class="nav-arrow arrow-left" id="prevBtn" type="button">❮</button>
+      <img id="carouselImg" class="lightbox-img" src="" alt="Ámbar ampliada">
+      <button class="nav-arrow arrow-right" id="nextBtn" type="button">❯</button>
     </div>
   </div>
 
   <script>
-    // Contador
+    // Contador regresivo
     const TARGET_DATE = new Date(2026, 10, 14, 11, 0, 0).getTime();
     function updateCountdown() {
       const now = new Date().getTime();
@@ -569,7 +586,7 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // RSVP
+    // Modal RSVP
     const rsvpModal = document.getElementById('rsvpModal');
     document.getElementById('openRsvpBtn').onclick = () => rsvpModal.style.display = 'flex';
     document.getElementById('closeRsvpBtn').onclick = () => rsvpModal.style.display = 'none';
@@ -585,11 +602,12 @@
       rsvpModal.style.display = 'none';
     };
 
-    // Carrusel
+    // Galería y visor de imágenes
     const photoList = ['foto1.jpg', 'foto2.jpg', 'foto3.jpg', 'foto4.jpg', 'foto5.jpg', 'foto6.jpg'];
     let currentIndex = 0;
     const carouselOverlay = document.getElementById('carouselOverlay');
     const carouselImg = document.getElementById('carouselImg');
+    const btnCerrarModal = document.getElementById('btnCerrarModal');
 
     function openCarousel(index) {
       currentIndex = index;
@@ -599,21 +617,61 @@
 
     function closeCarousel() {
       carouselOverlay.style.display = 'none';
+      carouselImg.src = '';
     }
 
-    function prevPhoto(e) {
-      if (e) e.stopPropagation();
+    // Cerrar tocando el botón de la cruz directamente
+    btnCerrarModal.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      closeCarousel();
+    });
+
+    // Cerrar también tocando cualquier parte del fondo oscuro
+    carouselOverlay.addEventListener('click', (e) => {
+      if (e.target === carouselOverlay || e.target.id === 'carouselContainer') {
+        closeCarousel();
+      }
+    });
+
+    // Flechas de navegación
+    document.getElementById('prevBtn').addEventListener('click', (e) => {
+      e.stopPropagation();
       currentIndex = (currentIndex === 0) ? photoList.length - 1 : currentIndex - 1;
       carouselImg.src = photoList[currentIndex];
-    }
+    });
 
-    function nextPhoto(e) {
-      if (e) e.stopPropagation();
+    document.getElementById('nextBtn').addEventListener('click', (e) => {
+      e.stopPropagation();
       currentIndex = (currentIndex === photoList.length - 1) ? 0 : currentIndex + 1;
       carouselImg.src = photoList[currentIndex];
-    }
+    });
 
-    // Audio
+    // Cerrar con la tecla Escape si están en PC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && carouselOverlay.style.display === 'flex') {
+        closeCarousel();
+      }
+    });
+
+    // Deslizar con el dedo en celular (Swipe)
+    let touchStartX = 0;
+    carouselOverlay.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    carouselOverlay.addEventListener('touchend', (e) => {
+      let touchEndX = e.changedTouches[0].screenX;
+      if (touchEndX < touchStartX - 50) {
+        currentIndex = (currentIndex === photoList.length - 1) ? 0 : currentIndex + 1;
+        carouselImg.src = photoList[currentIndex];
+      } else if (touchEndX > touchStartX + 50) {
+        currentIndex = (currentIndex === 0) ? photoList.length - 1 : currentIndex - 1;
+        carouselImg.src = photoList[currentIndex];
+      }
+    }, { passive: true });
+
+    // Audio con inicio al primer toque o botón
     const cancion = document.getElementById('cancionReal');
     const musicBtn = document.getElementById('musicToggle');
 
@@ -646,3 +704,5 @@
   </script>
 </body>
 </html>
+    
+     
