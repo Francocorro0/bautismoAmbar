@@ -131,22 +131,25 @@
       margin: 20px 0;
     }
 
-    .parents-box {
+    .family-box {
       border-top: 1px solid #f2e2e2;
       border-bottom: 1px solid #f2e2e2;
-      padding: 14px 0;
+      padding: 16px 0;
       margin: 18px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
-    .parents-box h4 {
+    .family-group h4 {
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 2px;
       color: var(--rose-accent-dark);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
-    .parents-box p {
+    .family-group p {
       font-family: var(--font-serif);
       font-size: 1.25rem;
       font-weight: 600;
@@ -225,7 +228,6 @@
       margin-bottom: 14px;
     }
 
-    /* Recuadro destacado a la canasta */
     .basket-highlight {
       background: linear-gradient(135deg, #c47777 0%, #ab5d5d 100%);
       color: #ffffff;
@@ -442,7 +444,7 @@
 </head>
 <body>
 
-  <!-- Audio MP3 -->
+  <!-- Audio MP3 subido a GitHub -->
   <audio id="cancionReal" src="musica.mp3" loop preload="auto"></audio>
 
   <div class="container">
@@ -467,9 +469,16 @@
         "En este día tan especial recibo la bendición de Dios, rodeada del amor de mi familia."
       </p>
 
-      <div class="parents-box">
-        <h4>Mis Papás</h4>
-        <p>Cynthia Corró &amp; Alejandro Rothlisberger</p>
+      <!-- Padres y Padrinos -->
+      <div class="family-box">
+        <div class="family-group">
+          <h4>Mis Papás</h4>
+          <p>Cynthia Corró &amp; Alejandro Rothlisberger</p>
+        </div>
+        <div class="family-group">
+          <h4>Mis Padrinos</h4>
+          <p>Esteban Corró &amp; Franco Corró</p>
+        </div>
       </div>
 
       <div class="timer-section">
@@ -521,7 +530,6 @@
         <span style="font-size: 0.8rem; color: var(--rose-accent-dark);">(Entre calle 11 y 12 · A 3 cuadras de Av. 9 de Julio)</span>
       </p>
 
-      <!-- Pastilla destacada visible a primera vista -->
       <div class="basket-highlight">
         <span class="tag">🧺 Compartir a la Canasta</span>
         <p>Traer bebidas, vaso y algo rico para compartir entre todos 🥤🍷</p>
@@ -547,7 +555,7 @@
       </div>
     </div>
 
-    <!-- RSVP con el nuevo número -->
+    <!-- RSVP -->
     <div class="info-card">
       <div class="icon-badge">💌</div>
       <h3>Confirmar Asistencia</h3>
