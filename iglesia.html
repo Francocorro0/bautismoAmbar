@@ -258,13 +258,6 @@
       margin-top: 10px;
     }
 
-    .btn-whatsapp {
-      background: #25D366;
-      color: #fff;
-      box-shadow: 0 8px 18px rgba(37, 211, 102, 0.25);
-    }
-
-    /* Galería */
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -286,7 +279,6 @@
       object-fit: cover;
     }
 
-    /* Visor / Carrusel Modal */
     .lightbox-overlay {
       position: fixed;
       inset: 0;
@@ -357,54 +349,6 @@
     .arrow-left { left: 12px; }
     .arrow-right { right: 12px; }
 
-    /* Modal RSVP */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      z-index: 5000;
-    }
-
-    .modal-box {
-      background: #fff;
-      border-radius: 20px;
-      padding: 24px;
-      width: 100%;
-      max-width: 380px;
-    }
-
-    .modal-box h3 {
-      font-family: var(--font-serif);
-      font-size: 1.5rem;
-      margin-bottom: 12px;
-      text-align: center;
-    }
-
-    .form-group {
-      margin-bottom: 12px;
-      text-align: left;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      margin-bottom: 4px;
-      color: var(--text-muted);
-    }
-
-    .form-group input, .form-group select {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      font-family: inherit;
-    }
-
     .footer {
       text-align: center;
       font-size: 0.75rem;
@@ -415,7 +359,6 @@
 </head>
 <body>
 
-  <!-- Audio MP3 subido a GitHub -->
   <audio id="cancionReal" src="musica.mp3" loop preload="auto"></audio>
 
   <div class="container">
@@ -424,7 +367,7 @@
       <span style="font-size: 0.75rem; color: var(--rose-accent-dark); font-weight: 500;">Bautismo de Ámbar</span>
     </div>
 
-    <!-- Portada Principal -->
+    <!-- Portada -->
     <div class="card">
       <div class="cross-icon">✝</div>
       <div class="title-sub">Mi Bautismo</div>
@@ -440,7 +383,6 @@
         "En este día tan especial recibo la bendición de Dios, rodeada del amor de mi familia."
       </p>
 
-      <!-- Padres y Padrinos -->
       <div class="family-box">
         <div class="family-group">
           <h4>Mis Papás</h4>
@@ -490,7 +432,7 @@
       </a>
     </div>
 
-    <!-- Galería con Carrusel -->
+    <!-- Galería -->
     <div class="info-card">
       <div class="icon-badge">📷</div>
       <h3>Momentos Especiales</h3>
@@ -505,54 +447,12 @@
       </div>
     </div>
 
-    <!-- RSVP -->
-    <div class="info-card">
-      <div class="icon-badge">💌</div>
-      <h3>Confirmar Asistencia</h3>
-      <p class="address">Por favor confirmanos si vas a poder acompañarnos a la ceremonia religiosa.</p>
-      <button class="btn btn-whatsapp" id="openRsvpBtn">
-        Confirmar por WhatsApp
-      </button>
-    </div>
-
     <div class="footer">
       Esperamos compartir este hermoso momento con vos ❤️
     </div>
   </div>
 
-  <!-- Modal RSVP -->
-  <div class="modal-overlay" id="rsvpModal">
-    <div class="modal-box">
-      <h3>Confirmar Asistencia</h3>
-      <form id="rsvpForm">
-        <div class="form-group">
-          <label>Nombre y Apellido / Familia</label>
-          <input type="text" id="guestName" placeholder="Ej: Familia López" required>
-        </div>
-        <div class="form-group">
-          <label>¿Cuántas personas asisten?</label>
-          <select id="guestCount">
-            <option value="1 persona">1 persona</option>
-            <option value="2 personas" selected>2 personas</option>
-            <option value="3 personas">3 personas</option>
-            <option value="4 o más personas">4 o más personas</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Mensaje (opcional)</label>
-          <input type="text" id="guestMsg" placeholder="¡Ahí estaremos!">
-        </div>
-        <button type="submit" class="btn btn-whatsapp" style="margin-top: 10px;">
-          Enviar Confirmación
-        </button>
-        <button type="button" class="btn btn-maps" id="closeRsvpBtn" style="margin-top: 8px;">
-          Cancelar
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Modal Carrusel -->
+  <!-- Carrusel -->
   <div class="lightbox-overlay" id="carouselOverlay">
     <button class="close-btn" id="btnCerrarModal" type="button" aria-label="Cerrar">✕</button>
     <div class="lightbox-content" id="carouselContainer">
@@ -564,8 +464,6 @@
 
   <script>
     const TARGET_DATE = new Date(2026, 10, 14, 17, 0, 0).getTime();
-    const PHONE = "5493624902525";
-
     function updateCountdown() {
       const now = new Date().getTime();
       const diff = TARGET_DATE - now;
@@ -578,23 +476,6 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // Modal RSVP
-    const rsvpModal = document.getElementById('rsvpModal');
-    document.getElementById('openRsvpBtn').onclick = () => rsvpModal.style.display = 'flex';
-    document.getElementById('closeRsvpBtn').onclick = () => rsvpModal.style.display = 'none';
-
-    document.getElementById('rsvpForm').onsubmit = (e) => {
-      e.preventDefault();
-      const name = document.getElementById('guestName').value;
-      const count = document.getElementById('guestCount').value;
-      const msg = document.getElementById('guestMsg').value;
-      let text = `¡Hola! Confirmo asistencia a la ceremonia de bautismo de Ámbar ✨%0A%0A*Familia:* ${encodeURIComponent(name)}%0A*Asistentes:* ${encodeURIComponent(count)}`;
-      if (msg) text += `%0A*Mensaje:* ${encodeURIComponent(msg)}`;
-      window.open(`https://wa.me/${PHONE}?text=${text}`, '_blank');
-      rsvpModal.style.display = 'none';
-    };
-
-    // Galería
     const photoList = ['foto1.jpg', 'foto2.jpg', 'foto3.jpg', 'foto4.jpg', 'foto5.jpg', 'foto6.jpg'];
     let currentIndex = 0;
     const carouselOverlay = document.getElementById('carouselOverlay');
@@ -642,7 +523,6 @@
       }
     });
 
-    // Deslizar en táctil
     let touchStartX = 0;
     carouselOverlay.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
@@ -659,7 +539,6 @@
       }
     }, { passive: true });
 
-    // Audio
     const cancion = document.getElementById('cancionReal');
     const musicBtn = document.getElementById('musicToggle');
 
