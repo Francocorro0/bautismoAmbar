@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Bautismo · Ámbar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --rose-light: #fbf5f4;
+      --rose-card: #ffffff;
+      --rose-accent: #dd9b9b;
+      --rose-accent-dark: #b86b6b;
+      --gold-soft: #cbb493;
+      --text-main: #3d3434;
+      --text-muted: #7d7272;
+      --radius: 24px;
+      --shadow: 0 16px 36px rgba(184, 107, 107, 0.08);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Montserrat', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--rose-light);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 24px 16px 60px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 8px;
+    }
+
+    .music-btn {
+      background: #ffffff;
+      border: 1px solid rgba(221, 155, 155, 0.3);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--rose-accent-dark);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+
+    .card {
+      background: var(--rose-card);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(221, 155, 155, 0.2);
+    }
+
+    .cross-icon {
+      color: var(--gold-soft);
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .title-sub {
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 0.8rem;
+      color: var(--rose-accent-dark);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .title-name {
+      font-family: var(--font-serif);
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 210px;
+      height: 210px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      padding: 6px;
+      background: linear-gradient(135deg, #f7dcd6 0%, #ecd4b8 100%);
+      box-shadow: 0 10px 24px rgba(221, 155, 155, 0.25);
+    }
+
+    .avatar-circle {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+    }
+
+    .quote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin: 20px 0;
+    }
+
+    .family-box {
+      border-top: 1px solid #f2e2e2;
+      border-bottom: 1px solid #f2e2e2;
+      padding: 16px 0;
+      margin: 18px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .family-group h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--rose-accent-dark);
+      margin-bottom: 4px;
+    }
+
+    .family-group p {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .timer-section {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 20px 0 10px;
+    }
+
+    .timer-slot {
+      background: #fbf5f4;
+      border: 1px solid #edd4d4;
+      border-radius: 14px;
+      padding: 10px 4px;
+    }
+
+    .timer-slot .num {
+      font-family: var(--font-serif);
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--rose-accent-dark);
+      line-height: 1;
+    }
+
+    .timer-slot .lbl {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .info-card {
+      background: var(--rose-card);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(221, 155, 155, 0.2);
+      text-align: center;
+    }
+
+    .icon-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #fdf2f1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      font-size: 1.3rem;
+      color: var(--rose-accent);
+    }
+
+    .info-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+    }
+
+    .info-card .highlight {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--rose-accent-dark);
+      margin-bottom: 6px;
+    }
+
+    .info-card .address {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px 20px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.15s;
+    }
+    .btn:active { transform: scale(0.98); }
+
+    .btn-maps {
+      background: #fff;
+      color: var(--text-main);
+      border: 1px solid #dfc3c3;
+    }
+
+    .btn-cal {
+      background: #f4ece9;
+      color: var(--rose-accent-dark);
+      border: 1px solid #dec2c2;
+      margin-top: 10px;
+    }
+
+    .btn-whatsapp {
+      background: #25D366;
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(37, 211, 102, 0.25);
+    }
+
+    /* Galería */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .gallery-item {
+      aspect-ratio: 1;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Visor / Carrusel Modal */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      touch-action: pan-y;
+    }
+
+    .lightbox-content {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+    }
+
+    .lightbox-img {
+      max-width: 90vw;
+      max-height: 80vh;
+      border-radius: 12px;
+      object-fit: contain;
+      user-select: none;
+      z-index: 10000;
+    }
+
+    .close-btn {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      background: rgba(255, 255, 255, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      color: #ffffff;
+      font-size: 1.8rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10002;
+      backdrop-filter: blur(4px);
+    }
+
+    .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.25);
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10001;
+    }
+
+    .arrow-left { left: 12px; }
+    .arrow-right { right: 12px; }
+
+    /* Modal RSVP */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 5000;
+    }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 20px;
+      padding: 24px;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .modal-box h3 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text-muted);
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-family: inherit;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Audio MP3 subido a GitHub -->
+  <audio id="cancionReal" src="musica.mp3" loop preload="auto"></audio>
+
+  <div class="container">
+    <div class="top-bar">
+      <button class="music-btn" id="musicToggle">Tocar música 🎵</button>
+      <span style="font-size: 0.75rem; color: var(--rose-accent-dark); font-weight: 500;">Bautismo de Ámbar</span>
+    </div>
+
+    <!-- Portada Principal -->
+    <div class="card">
+      <div class="cross-icon">✝</div>
+      <div class="title-sub">Mi Bautismo</div>
+      <h1 class="title-name">Ámbar</h1>
+
+      <div class="avatar-wrapper">
+        <div class="avatar-circle">
+          <img class="avatar-img" src="foto.jpg" alt="Ámbar">
+        </div>
+      </div>
+
+      <p class="quote">
+        "En este día tan especial recibo la bendición de Dios, rodeada del amor de mi familia."
+      </p>
+
+      <!-- Padres y Padrinos -->
+      <div class="family-box">
+        <div class="family-group">
+          <h4>Mis Papás</h4>
+          <p>Cynthia Corró &amp; Alejandro Rothlisberger</p>
+        </div>
+        <div class="family-group">
+          <h4>Mis Padrinos</h4>
+          <p>Esteban Corró &amp; Franco Corró</p>
+        </div>
+      </div>
+
+      <div class="timer-section">
+        <div class="timer-slot">
+          <div class="num" id="days">--</div>
+          <div class="lbl">Días</div>
+        </div>
+        <div class="timer-slot">
+          <div class="num" id="hours">--</div>
+          <div class="lbl">Horas</div>
+        </div>
+        <div class="timer-slot">
+          <div class="num" id="minutes">--</div>
+          <div class="lbl">Min</div>
+        </div>
+        <div class="timer-slot">
+          <div class="num" id="seconds">--</div>
+          <div class="lbl">Seg</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ceremonia -->
+    <div class="info-card">
+      <div class="icon-badge">⛪</div>
+      <h3>Ceremonia</h3>
+      <div class="highlight">Sábado 14 de Noviembre de 2026 · 17:00 hs</div>
+      <p class="address">
+        <strong>Parroquia Nuestra Señora de Luján</strong><br>
+        (Verbo Divino)<br>
+        C. Bibiano Meza 2214, Resistencia, Chaco
+      </p>
+      <a href="https://maps.google.com/?q=C.+Bibiano+Meza+2214,+Resistencia,+Chaco" target="_blank" class="btn btn-maps">
+        📍 Cómo llegar a la Iglesia
+      </a>
+      <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Bautismo+de+%C3%81mbar&dates=20261114T200000Z/20261114T220000Z&details=Ceremonia+de+bautismo+de+%C3%81mbar+en+Parroquia+Nuestra+Se%C3%B1ora+de+Luj%C3%A1n&location=C.+Bibiano+Meza+2214,+Resistencia,+Chaco" target="_blank" class="btn btn-cal">
+        📅 Agendar Misa en Calendario
+      </a>
+    </div>
+
+    <!-- Galería con Carrusel -->
+    <div class="info-card">
+      <div class="icon-badge">📷</div>
+      <h3>Momentos Especiales</h3>
+      <p class="address">Tocá cualquier foto para verla ampliada</p>
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openCarousel(0)"><img src="foto1.jpg" alt="1"></div>
+        <div class="gallery-item" onclick="openCarousel(1)"><img src="foto2.jpg" alt="2"></div>
+        <div class="gallery-item" onclick="openCarousel(2)"><img src="foto3.jpg" alt="3"></div>
+        <div class="gallery-item" onclick="openCarousel(3)"><img src="foto4.jpg" alt="4"></div>
+        <div class="gallery-item" onclick="openCarousel(4)"><img src="foto5.jpg" alt="5"></div>
+        <div class="gallery-item" onclick="openCarousel(5)"><img src="foto6.jpg" alt="6"></div>
+      </div>
+    </div>
+
+    <!-- RSVP -->
+    <div class="info-card">
+      <div class="icon-badge">💌</div>
+      <h3>Confirmar Asistencia</h3>
+      <p class="address">Por favor confirmanos si vas a poder acompañarnos a la ceremonia religiosa.</p>
+      <button class="btn btn-whatsapp" id="openRsvpBtn">
+        Confirmar por WhatsApp
+      </button>
+    </div>
+
+    <div class="footer">
+      Esperamos compartir este hermoso momento con vos ❤️
+    </div>
+  </div>
+
+  <!-- Modal RSVP -->
+  <div class="modal-overlay" id="rsvpModal">
+    <div class="modal-box">
+      <h3>Confirmar Asistencia</h3>
+      <form id="rsvpForm">
+        <div class="form-group">
+          <label>Nombre y Apellido / Familia</label>
+          <input type="text" id="guestName" placeholder="Ej: Familia López" required>
+        </div>
+        <div class="form-group">
+          <label>¿Cuántas personas asisten?</label>
+          <select id="guestCount">
+            <option value="1 persona">1 persona</option>
+            <option value="2 personas" selected>2 personas</option>
+            <option value="3 personas">3 personas</option>
+            <option value="4 o más personas">4 o más personas</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Mensaje (opcional)</label>
+          <input type="text" id="guestMsg" placeholder="¡Ahí estaremos!">
+        </div>
+        <button type="submit" class="btn btn-whatsapp" style="margin-top: 10px;">
+          Enviar Confirmación
+        </button>
+        <button type="button" class="btn btn-maps" id="closeRsvpBtn" style="margin-top: 8px;">
+          Cancelar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Carrusel -->
+  <div class="lightbox-overlay" id="carouselOverlay">
+    <button class="close-btn" id="btnCerrarModal" type="button" aria-label="Cerrar">✕</button>
+    <div class="lightbox-content" id="carouselContainer">
+      <button class="nav-arrow arrow-left" id="prevBtn" type="button">❮</button>
+      <img id="carouselImg" class="lightbox-img" src="" alt="Ámbar ampliada">
+      <button class="nav-arrow arrow-right" id="nextBtn" type="button">❯</button>
+    </div>
+  </div>
+
+  <script>
+    const TARGET_DATE = new Date(2026, 10, 14, 17, 0, 0).getTime();
+    const PHONE = "5493624902525";
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = TARGET_DATE - now;
+      if (diff <= 0) return;
+      document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+      document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      document.getElementById('seconds').innerText = Math.floor((diff % (1000 * 60)) / 1000);
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Modal RSVP
+    const rsvpModal = document.getElementById('rsvpModal');
+    document.getElementById('openRsvpBtn').onclick = () => rsvpModal.style.display = 'flex';
+    document.getElementById('closeRsvpBtn').onclick = () => rsvpModal.style.display = 'none';
+
+    document.getElementById('rsvpForm').onsubmit = (e) => {
+      e.preventDefault();
+      const name = document.getElementById('guestName').value;
+      const count = document.getElementById('guestCount').value;
+      const msg = document.getElementById('guestMsg').value;
+      let text = `¡Hola! Confirmo asistencia a la ceremonia de bautismo de Ámbar ✨%0A%0A*Familia:* ${encodeURIComponent(name)}%0A*Asistentes:* ${encodeURIComponent(count)}`;
+      if (msg) text += `%0A*Mensaje:* ${encodeURIComponent(msg)}`;
+      window.open(`https://wa.me/${PHONE}?text=${text}`, '_blank');
+      rsvpModal.style.display = 'none';
+    };
+
+    // Galería
+    const photoList = ['foto1.jpg', 'foto2.jpg', 'foto3.jpg', 'foto4.jpg', 'foto5.jpg', 'foto6.jpg'];
+    let currentIndex = 0;
+    const carouselOverlay = document.getElementById('carouselOverlay');
+    const carouselImg = document.getElementById('carouselImg');
+    const btnCerrarModal = document.getElementById('btnCerrarModal');
+
+    function openCarousel(index) {
+      currentIndex = index;
+      carouselImg.src = photoList[currentIndex];
+      carouselOverlay.style.display = 'flex';
+    }
+
+    function closeCarousel() {
+      carouselOverlay.style.display = 'none';
+      carouselImg.src = '';
+    }
+
+    btnCerrarModal.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      closeCarousel();
+    });
+
+    carouselOverlay.addEventListener('click', (e) => {
+      if (e.target === carouselOverlay || e.target.id === 'carouselContainer') {
+        closeCarousel();
+      }
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentIndex = (currentIndex === 0) ? photoList.length - 1 : currentIndex - 1;
+      carouselImg.src = photoList[currentIndex];
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentIndex = (currentIndex === photoList.length - 1) ? 0 : currentIndex + 1;
+      carouselImg.src = photoList[currentIndex];
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && carouselOverlay.style.display === 'flex') {
+        closeCarousel();
+      }
+    });
+
+    // Deslizar en táctil
+    let touchStartX = 0;
+    carouselOverlay.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    carouselOverlay.addEventListener('touchend', (e) => {
+      let touchEndX = e.changedTouches[0].screenX;
+      if (touchEndX < touchStartX - 50) {
+        currentIndex = (currentIndex === photoList.length - 1) ? 0 : currentIndex + 1;
+        carouselImg.src = photoList[currentIndex];
+      } else if (touchEndX > touchStartX + 50) {
+        currentIndex = (currentIndex === 0) ? photoList.length - 1 : currentIndex - 1;
+        carouselImg.src = photoList[currentIndex];
+      }
+    }, { passive: true });
+
+    // Audio
+    const cancion = document.getElementById('cancionReal');
+    const musicBtn = document.getElementById('musicToggle');
+
+    function reproducirPrimerToque() {
+      if (cancion.paused) {
+        cancion.play().then(() => {
+          musicBtn.innerText = "Pausar música ⏸️";
+          ['click', 'touchstart', 'scroll'].forEach(evt => {
+            document.removeEventListener(evt, reproducirPrimerToque);
+          });
+        }).catch(() => {});
+      }
+    }
+
+    ['click', 'touchstart', 'scroll'].forEach(evt => {
+      document.addEventListener(evt, reproducirPrimerToque, { passive: true });
+    });
+
+    musicBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (cancion.paused) {
+        cancion.play().then(() => {
+          musicBtn.innerText = "Pausar música ⏸️";
+        });
+      } else {
+        cancion.pause();
+        musicBtn.innerText = "Tocar música 🎵";
+      }
+    });
+  </script>
+</body>
+</html>
