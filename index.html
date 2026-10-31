@@ -293,7 +293,6 @@
       box-shadow: 0 8px 18px rgba(37, 211, 102, 0.25);
     }
 
-    /* Galería */
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -315,7 +314,6 @@
       object-fit: cover;
     }
 
-    /* Visor / Carrusel Modal */
     .lightbox-overlay {
       position: fixed;
       inset: 0;
@@ -386,7 +384,6 @@
     .arrow-left { left: 12px; }
     .arrow-right { right: 12px; }
 
-    /* Modal RSVP */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -444,7 +441,6 @@
 </head>
 <body>
 
-  <!-- Audio MP3 subido a GitHub -->
   <audio id="cancionReal" src="musica.mp3" loop preload="auto"></audio>
 
   <div class="container">
@@ -515,11 +511,11 @@
         📍 Cómo llegar a la Iglesia
       </a>
       <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Bautismo+de+%C3%81mbar&dates=20261114T200000Z/20261114T220000Z&details=Ceremonia+de+bautismo+de+%C3%81mbar+en+Parroquia+Nuestra+Se%C3%B1ora+de+Luj%C3%A1n&location=C.+Bibiano+Meza+2214,+Resistencia,+Chaco" target="_blank" class="btn btn-cal">
-        📅 Agendar Misa en Calendario
+        📅 Agendar Bautismo en Calendario
       </a>
     </div>
 
-    <!-- Festejo en el Quincho -->
+    <!-- Festejo en Quincho -->
     <div class="info-card">
       <div class="icon-badge">🥂</div>
       <h3>Festejo</h3>
@@ -628,7 +624,6 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // Modal RSVP
     const rsvpModal = document.getElementById('rsvpModal');
     document.getElementById('openRsvpBtn').onclick = () => rsvpModal.style.display = 'flex';
     document.getElementById('closeRsvpBtn').onclick = () => rsvpModal.style.display = 'none';
@@ -644,7 +639,6 @@
       rsvpModal.style.display = 'none';
     };
 
-    // Galería
     const photoList = ['foto1.jpg', 'foto2.jpg', 'foto3.jpg', 'foto4.jpg', 'foto5.jpg', 'foto6.jpg'];
     let currentIndex = 0;
     const carouselOverlay = document.getElementById('carouselOverlay');
@@ -692,7 +686,6 @@
       }
     });
 
-    // Deslizar en táctil
     let touchStartX = 0;
     carouselOverlay.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
@@ -709,7 +702,6 @@
       }
     }, { passive: true });
 
-    // Audio
     const cancion = document.getElementById('cancionReal');
     const musicBtn = document.getElementById('musicToggle');
 
